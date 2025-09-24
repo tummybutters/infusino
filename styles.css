@@ -186,6 +186,7 @@ body {
   letter-spacing: -0.025em;
   font-weight: 800;
   max-width: min(1600px, 96vw);
+  text-align: center;
 }
 
 .cta-hero { margin-top: 28px; justify-self: start; width: max-content; }
