@@ -190,7 +190,7 @@ body {
   margin: 0 auto;
 }
 
-.cta-hero { margin-top: 28px; justify-self: center; width: max-content; }
+.cta-hero { margin: 28px auto 0; width: max-content; }
 
 .site-footer { padding: 24px 0; }
 
