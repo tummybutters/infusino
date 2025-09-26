@@ -1,9 +1,10 @@
-modules = ["web", "python-3.11"]
+modules = ["nodejs-20", "python-3.11", "web"]
 [agent]
 expertMode = true
 
 [nix]
 channel = "stable-25_05"
+packages = ["codex"]
 
 [workflows]
 runButton = "Project"
