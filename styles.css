@@ -326,10 +326,19 @@ body {
 .services-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 28px;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .services-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 28px; 
+  }
 }
 @media (min-width: 1100px) {
-  .services-grid { grid-template-columns: 0.9fr 1.1fr; gap: 36px; }
+  .services-grid { 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 32px; 
+  }
 }
 
 .service-heading {
@@ -350,19 +359,13 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.service-right { position: relative; }
-.media-large { position: relative; border-radius: 28px; overflow: hidden; }
-.media-large img { width: 100%; height: auto; display: block; }
-.media-overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: clamp(18px, 3.2vw, 28px);
-  color: #fff;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%);
+.service-box {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 32px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
-.overlay-title { font-size: clamp(26px, 3.2vw, 42px); margin: 0 0 10px; }
-.overlay-chips .chip { background: rgba(255,255,255,0.14); color: #fff; border-color: rgba(255,255,255,0.18); }
-.chip-dark { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.2); }
 
 .testimonials { background: #e4e6ea; }
 .testimonials-inner {
