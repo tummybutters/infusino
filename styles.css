@@ -350,6 +350,18 @@ body {
 .testimonials-title,
 .final-cta-title {
   text-align: left;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero-title.fade-in,
+.about-title.fade-in,
+.services-title.fade-in,
+.testimonials-title.fade-in,
+.final-cta-title.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .services-title {

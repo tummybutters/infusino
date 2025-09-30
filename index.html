@@ -192,6 +192,18 @@
       </div>
       <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-in');
+            }
+          });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.hero-title, .about-title, .services-title, .testimonials-title, .final-cta-title').forEach(title => {
+          observer.observe(title);
+        });
       </script>
     </footer>
   </body>
