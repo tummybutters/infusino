@@ -186,14 +186,12 @@ body {
   letter-spacing: -0.025em;
   font-weight: 800;
   max-width: min(1600px, 96vw);
-  text-align: center;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .cta-hero { 
-  margin: 28px auto 0; 
+  margin: 28px 0 0 0; 
   width: max-content; 
-  max-width: min(1600px, 96vw);
 }
 
 .site-footer { padding: 24px 0; }
