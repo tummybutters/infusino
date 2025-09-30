@@ -190,7 +190,15 @@ body {
   margin: 0 auto;
 }
 
-.cta-hero { margin: 28px 0 0 0; justify-self: start; width: max-content; }
+.cta-hero { 
+  margin: 28px auto 0; 
+  width: max-content; 
+  max-width: min(1600px, 96vw);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: right;
+}
 
 .site-footer { padding: 24px 0; }
 
@@ -506,7 +514,7 @@ body {
   inset: 0;
   background:
     linear-gradient(#0000, #0000) padding-box,
-    
+
     radial-gradient(circle at 20% 30%, #ffffff 0 2px, #0000 3px) 40px 40px / 260px 100px no-repeat,
     radial-gradient(circle at 60% 70%, #ffffff 0 2px, #0000 3px) 10px 260px / 260px 100px no-repeat,
     radial-gradient(circle at 85% 50%, #ffffff 0 2px, #0000 3px) 80px 440px / 260px 100px no-repeat;
