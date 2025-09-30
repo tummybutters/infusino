@@ -166,6 +166,62 @@
               </div>
             </div>
           </div>
+
+          <button class="see-more-btn" id="seeMoreBtn">
+            <span>See more reviews</span>
+            <span class="circle-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17l10-10"></path>
+                <path d="M8 7h9v9"></path>
+              </svg>
+            </span>
+          </button>
+
+          <div class="additional-reviews" id="additionalReviews">
+            <div class="review-card">
+              <p class="review-text">"The AI systems they built transformed our lead generation. ROI was immediate."</p>
+              <div class="review-author">
+                <img class="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy">
+                <div>
+                  <div class="review-name">Michael Chen</div>
+                  <div class="review-title">CEO, TechFlow</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-card">
+              <p class="review-text">"Best consulting investment we've made. Their framework actually works."</p>
+              <div class="review-author">
+                <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy">
+                <div>
+                  <div class="review-name">Sarah Williams</div>
+                  <div class="review-title">VP Sales, GrowthCo</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-card">
+              <p class="review-text">"Saved us months of trial and error. Their expertise is unmatched."</p>
+              <div class="review-author">
+                <img class="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy">
+                <div>
+                  <div class="review-name">David Park</div>
+                  <div class="review-title">Founder, ScaleUp</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-card">
+              <p class="review-text">"Incredible results. Our sales pipeline has never been healthier."</p>
+              <div class="review-author">
+                <img class="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy">
+                <div>
+                  <div class="review-name">Emma Rodriguez</div>
+                  <div class="review-title">COO, MarketLeap</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section class="final-cta" aria-labelledby="final-cta-heading">
@@ -203,6 +259,12 @@
 
         document.querySelectorAll('.hero-title, .about-title, .services-title, .testimonials-title, .final-cta-title').forEach(title => {
           observer.observe(title);
+        });
+
+        document.getElementById('seeMoreBtn').addEventListener('click', function() {
+          const additionalReviews = document.getElementById('additionalReviews');
+          additionalReviews.classList.toggle('show');
+          this.classList.toggle('hidden');
         });
       </script>
     </footer>
