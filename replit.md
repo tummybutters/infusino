@@ -1,7 +1,7 @@
-# InfusionConsulting Website
+# Qortana Website
 
 ## Overview
-This is a static website for InfusionConsulting - "The definitive AI growth partner for fast-moving B2B companies." The site is a professional landing page showcasing their consulting services, client testimonials, and contact information.
+This is a static website for Qortana - "The definitive AI growth partner for fast-moving B2B companies." The site is a professional landing page showcasing their consulting services, client testimonials, and contact information.
 
 ## Project Structure
 - `index.html` - Main landing page with responsive design
