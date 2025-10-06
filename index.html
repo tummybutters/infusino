@@ -243,8 +243,33 @@
     </main>
 
     <footer class="site-footer" id="contact">
-      <div class="container">
-        <p class="sr-only">© <span id="year"></span> Qortana</p>
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <a href="#" class="brand" aria-label="Qortana home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">Qortana</span>
+          </a>
+          <p class="footer-tagline">The definitive AI growth partner</p>
+        </div>
+        
+        <nav class="footer-nav">
+          <div class="footer-nav-group">
+            <h3 class="footer-nav-title">Company</h3>
+            <a href="#about">About</a>
+            <a href="#reviews">Case studies</a>
+            <a href="#contact">Contact</a>
+          </div>
+          
+          <div class="footer-nav-group">
+            <h3 class="footer-nav-title">Legal</h3>
+            <a href="/sms-privacy.html">SMS Privacy</a>
+            <a href="/sms-terms.html">SMS Terms</a>
+          </div>
+        </nav>
+        
+        <div class="footer-bottom">
+          <p class="footer-copyright">© <span id="year"></span> Qortana. All rights reserved.</p>
+        </div>
       </div>
       <script>
         document.getElementById('year').textContent = new Date().getFullYear();
