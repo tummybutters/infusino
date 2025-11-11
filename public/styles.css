@@ -4,8 +4,8 @@
   --muted: #6b7280;
   --surface: #ffffff;
   --ring: rgba(0,0,0,0.08);
-  /* Global horizontal gutters for left-aligned layout */
-  --gutter: clamp(36px, 8vw, 144px);
+  /* Global horizontal gutters - more comfortable minimum spacing */
+  --gutter: clamp(56px, 8vw, 144px);
 }
 
 * { box-sizing: border-box; }
@@ -20,14 +20,14 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1280px;
-  margin: 0;
+  max-width: 1440px;
+  margin: 0 auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
 }
 
-/* Allow hero and section containers to span wider for large headings */
-.hero .container { max-width: 1680px; margin: 0 auto; }
+/* Hero gets extra width but stays left-aligned via padding */
+.hero .container { max-width: 1600px; }
 .about .container,
 .services .container,
 .testimonials .container { max-width: 1440px; }
@@ -224,7 +224,7 @@ body {
 }
 
 .cta-hero { 
-  margin: 28px 0 0 0; 
+  margin: 40px 0 0 0; 
   width: max-content; 
 }
 
