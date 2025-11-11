@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CircleCheckIcon, ArrowLeft } from 'lucide-react'
+import { CircleCheckIcon, ArrowLeft, Loader2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -10,18 +10,71 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function BookAppointment() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 20))
-  const [selectedTime, setSelectedTime] = useState<string | null>('10:00')
+  const [date, setDate] = useState<Date | undefined>(undefined)
+  const [selectedTime, setSelectedTime] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [bookingConfirmed, setBookingConfirmed] = useState(false)
 
-  const timeSlots = Array.from({ length: 37 }, (_, i) => {
+  // Generate time slots from 7:00 AM to 7:00 PM (12 hours * 4 slots per hour + 1 for 7:00 PM)
+  const timeSlots = Array.from({ length: 49 }, (_, i) => {
     const totalMinutes = i * 15
-    const hour = Math.floor(totalMinutes / 60) + 9
+    const hour = Math.floor(totalMinutes / 60) + 7
     const minute = totalMinutes % 60
 
     return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
   })
 
-  const bookedDates = Array.from({ length: 3 }, (_, i) => new Date(2025, 5, 17 + i))
+  // Function to disable Sundays
+  const disableSundays = (date: Date) => {
+    return date.getDay() === 0 // 0 is Sunday
+  }
+
+  // Function to disable dates in the past
+  const disablePastDates = (date: Date) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return date < today
+  }
+
+  // Combine both disable functions
+  const isDateDisabled = (date: Date) => {
+    return disableSundays(date) || disablePastDates(date)
+  }
+
+  const handleContinue = async () => {
+    if (!date || !selectedTime) return
+
+    setIsLoading(true)
+    try {
+      // Call the API endpoint to create Google Calendar event
+      const response = await fetch('/api/book-appointment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: date.toISOString(),
+          time: selectedTime,
+        }),
+      })
+
+      if (response.ok) {
+        setBookingConfirmed(true)
+        // Optionally redirect or show success message
+        setTimeout(() => {
+          // You can redirect to a confirmation page or home
+          // window.location.href = '/'
+        }, 2000)
+      } else {
+        alert('Failed to book appointment. Please try again.')
+      }
+    } catch (error) {
+      console.error('Booking error:', error)
+      alert('An error occurred. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-12 px-4">
@@ -55,15 +108,9 @@ export default function BookAppointment() {
                 mode='single'
                 selected={date}
                 onSelect={setDate}
-                defaultMonth={date}
-                disabled={bookedDates}
+                defaultMonth={date || new Date()}
+                disabled={isDateDisabled}
                 showOutsideDays={false}
-                modifiers={{
-                  booked: bookedDates
-                }}
-                modifiersClassNames={{
-                  booked: '[&>button]:line-through opacity-100'
-                }}
                 className='bg-transparent p-0 [--cell-size:--spacing(10)]'
                 formatters={{
                   formatWeekdayName: date => {
@@ -80,7 +127,8 @@ export default function BookAppointment() {
                       key={time}
                       variant={selectedTime === time ? 'default' : 'outline'}
                       onClick={() => setSelectedTime(time)}
-                      className='w-full shadow-none'
+                      disabled={!date}
+                      className='w-full shadow-none transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md disabled:hover:scale-100 disabled:hover:shadow-none'
                     >
                       {time}
                     </Button>
@@ -91,28 +139,48 @@ export default function BookAppointment() {
           </CardContent>
           <CardFooter className='flex flex-col gap-4 border-t px-6 !py-5 md:flex-row'>
             <div className='flex items-center gap-2 text-sm'>
-              {date && selectedTime ? (
+              {bookingConfirmed ? (
                 <>
                   <CircleCheckIcon className='size-5 stroke-green-600 dark:stroke-green-400' />
+                  <span className='text-green-600 dark:text-green-400 font-medium'>
+                    Booking confirmed! Check your email for details.
+                  </span>
+                </>
+              ) : date && selectedTime ? (
+                <>
+                  <CircleCheckIcon className='size-5 stroke-blue-600 dark:stroke-blue-400' />
                   <span>
-                    Your meeting is booked for{' '}
+                    Ready to book for{' '}
                     <span className='font-medium'>
-                      {' '}
                       {date?.toLocaleDateString('en-US', {
                         weekday: 'long',
                         day: 'numeric',
                         month: 'long'
-                      })}{' '}
+                      })}
                     </span>
-                    at <span className='font-medium'>{selectedTime}</span>.
+                    {' '}at <span className='font-medium'>{selectedTime}</span>.
                   </span>
                 </>
               ) : (
                 <>Select a date and time for your meeting.</>
               )}
             </div>
-            <Button disabled={!date || !selectedTime} className='w-full md:ml-auto md:w-auto' variant='outline'>
-              Continue
+            <Button 
+              disabled={!date || !selectedTime || isLoading || bookingConfirmed} 
+              onClick={handleContinue}
+              className='w-full md:ml-auto md:w-auto transition-all duration-200 hover:scale-105 active:scale-95 disabled:hover:scale-100' 
+              variant='outline'
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                  Booking...
+                </>
+              ) : bookingConfirmed ? (
+                'Confirmed!'
+              ) : (
+                'Continue'
+              )}
             </Button>
           </CardFooter>
         </Card>

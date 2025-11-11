@@ -1,7 +1,53 @@
+'use client'
+
 import Link from 'next/link'
-import Script from 'next/script'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+
+// Animation variants for scroll-triggered elements
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: 'easeOut' }
+  }
+}
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const serviceBox = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  }
+}
+
+const reviewCard = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: i * 0.1,
+      ease: 'easeOut'
+    }
+  })
+}
 
 export default function Home() {
+  const [showMoreReviews, setShowMoreReviews] = useState(false)
   return (
     <>
       <link rel="stylesheet" href="/styles.css" />
@@ -29,30 +75,73 @@ export default function Home() {
 
       <main>
         <section className="hero" id="home">
-          <div className="hero-bg" aria-hidden="true"></div>
+          <motion.div 
+            className="hero-bg" 
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          />
           <div className="container hero-inner">
-            <h1 className="hero-title">The definitive AI growth partner for fast-moving B2B companies.</h1>
-            <Link className="button button-light cta-hero" href="/book">
-              <span>Let's talk</span>
-              <span className="circle-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17l10-10"></path>
-                  <path d="M8 7h9v9"></path>
-                </svg>
-              </span>
-            </Link>
+            <motion.h1 
+              className="hero-title"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUp}
+            >
+              The definitive AI growth partner for fast-moving B2B companies.
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Link className="button button-light cta-hero" href="/book">
+                <span>Let's talk</span>
+                <span className="circle-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17l10-10"></path>
+                    <path d="M8 7h9v9"></path>
+                  </svg>
+                </span>
+              </Link>
+            </motion.div>
           </div>
         </section>
 
         <section className="about" id="about">
           <div className="container about-inner">
             <div className="about-copy">
-              <div className="pill">
+              <motion.div 
+                className="pill"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+              >
                 <span className="pill-badge">1</span>
                 <span>Introducing Qortana</span>
-              </div>
-              <h2 className="about-title">Tens of millions of dollars generated (& more saved).</h2>
-              <p className="about-text">Our team has generated millions across both SMB & enterprise. We use a proprietary, AI‑driven consulting stack and a framework that dives deep into the heart of your business to fix real, practical problems—not just theoretical ones that look good on paper, but actual ways to drive revenue & grow.</p>
+              </motion.div>
+              <motion.h2 
+                className="about-title"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInUp}
+              >
+                Tens of millions of dollars generated (& more saved).
+              </motion.h2>
+              <motion.p 
+                className="about-text"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                Our team has generated millions across both SMB & enterprise. We use a proprietary, AI‑driven consulting stack and a framework that dives deep into the heart of your business to fix real, practical problems—not just theoretical ones that look good on paper, but actual ways to drive revenue & grow.
+              </motion.p>
               <Link className="button button-dark cta-about" href="/book">
                 <span>Let's talk</span>
                 <span className="circle-arrow" aria-hidden="true">
@@ -63,24 +152,50 @@ export default function Home() {
                 </span>
               </Link>
             </div>
-            <div className="about-media">
+            <motion.div 
+              className="about-media"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               <figure className="media-card">
                 <img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop" alt="Discussion panel on stage" loading="lazy" />
               </figure>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         <section className="services" id="services">
           <div className="container services-inner">
-            <div className="pill">
+            <motion.div 
+              className="pill"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5 }}
+            >
               <span className="pill-badge">4</span>
               <span>Our Services</span>
-            </div>
-            <h2 className="services-title">What we specialize in.</h2>
+            </motion.div>
+            <motion.h2 
+              className="services-title"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUp}
+            >
+              What we specialize in.
+            </motion.h2>
 
-            <div className="services-grid">
-              <div className="service-box service-lead">
+            <motion.div 
+              className="services-grid"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={staggerContainer}
+            >
+              <motion.div className="service-box service-lead" variants={serviceBox}>
                 <div className="service-overlay">
                   <h3 className="service-heading">Lead Generation</h3>
                   <div className="chip-row">
@@ -91,9 +206,9 @@ export default function Home() {
                     <span className="chip chip-overlay">Content Systems</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="service-box service-project">
+              <motion.div className="service-box service-project" variants={serviceBox}>
                 <div className="service-overlay">
                   <h3 className="service-heading">Project Management</h3>
                   <div className="chip-row">
@@ -104,9 +219,9 @@ export default function Home() {
                     <span className="chip chip-overlay">PM Systems</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="service-box service-hiring">
+              <motion.div className="service-box service-hiring" variants={serviceBox}>
                 <div className="service-overlay">
                   <h3 className="service-heading">Hiring Systems</h3>
                   <div className="chip-row">
@@ -117,9 +232,9 @@ export default function Home() {
                     <span className="chip chip-overlay">Trial Systems</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="service-box service-sales">
+              <motion.div className="service-box service-sales" variants={serviceBox}>
                 <div className="service-overlay">
                   <h3 className="service-heading">Sales Administration</h3>
                   <div className="chip-row">
@@ -130,25 +245,51 @@ export default function Home() {
                     <span className="chip chip-overlay">AI Nurture Systems</span>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
         <section className="testimonials" id="reviews">
           <div className="container testimonials-inner">
-            <div className="pill">
+            <motion.div 
+              className="pill"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5 }}
+            >
               <span className="pill-badge">4</span>
               <span>Client reviews</span>
-            </div>
-            <h2 className="testimonials-title">Some words from happy clients.</h2>
+            </motion.div>
+            <motion.h2 
+              className="testimonials-title"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUp}
+            >
+              Some words from happy clients.
+            </motion.h2>
 
-            <div className="logo-row">
+            <motion.div 
+              className="logo-row"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div className="logo-badge">fatjoe.</div>
               <div className="logo-badge">Scaling™</div>
-            </div>
+            </motion.div>
 
-            <div className="testimonial-frame">
+            <motion.div 
+              className="testimonial-frame"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <blockquote className="quote">
                 <p>"Nick & the Qortana team knows their stuff. Their AI systems are incredible."</p>
               </blockquote>
@@ -159,72 +300,147 @@ export default function Home() {
                   <div className="author-title">Cofounder, FATJOE</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <button className="see-more-btn" id="seeMoreBtn">
-              <span>See more reviews</span>
-              <span className="circle-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17l10-10"></path>
-                  <path d="M8 7h9v9"></path>
-                </svg>
-              </span>
-            </button>
+            {!showMoreReviews && (
+              <motion.button 
+                className="see-more-btn" 
+                onClick={() => setShowMoreReviews(true)}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>See more reviews</span>
+                <span className="circle-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17l10-10"></path>
+                    <path d="M8 7h9v9"></path>
+                  </svg>
+                </span>
+              </motion.button>
+            )}
 
-            <div className="additional-reviews" id="additionalReviews">
-              <div className="review-card">
-                <p className="review-text">"The AI systems they built transformed our lead generation. ROI was immediate."</p>
-                <div className="review-author">
-                  <img className="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
-                  <div>
-                    <div className="review-name">Michael Chen</div>
-                    <div className="review-title">CEO, TechFlow</div>
-                  </div>
-                </div>
-              </div>
+            <AnimatePresence>
+              {showMoreReviews && (
+                <motion.div 
+                  className="additional-reviews show"
+                  initial={{ opacity: 0, maxHeight: 0, marginTop: 0 }}
+                  animate={{ opacity: 1, maxHeight: 2000, marginTop: 32 }}
+                  exit={{ opacity: 0, maxHeight: 0, marginTop: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <motion.div 
+                    className="review-card"
+                    custom={0}
+                    initial="hidden"
+                    animate="visible"
+                    variants={reviewCard}
+                  >
+                    <p className="review-text">"The AI systems they built transformed our lead generation. ROI was immediate."</p>
+                    <div className="review-author">
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <div>
+                        <div className="review-name">Michael Chen</div>
+                        <div className="review-title">CEO, TechFlow</div>
+                      </div>
+                    </div>
+                  </motion.div>
 
-              <div className="review-card">
-                <p className="review-text">"Best consulting investment we've made. Their framework actually works."</p>
-                <div className="review-author">
-                  <img className="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
-                  <div>
-                    <div className="review-name">Sarah Williams</div>
-                    <div className="review-title">VP Sales, GrowthCo</div>
-                  </div>
-                </div>
-              </div>
+                  <motion.div 
+                    className="review-card"
+                    custom={1}
+                    initial="hidden"
+                    animate="visible"
+                    variants={reviewCard}
+                  >
+                    <p className="review-text">"Best consulting investment we've made. Their framework actually works."</p>
+                    <div className="review-author">
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <div>
+                        <div className="review-name">Sarah Williams</div>
+                        <div className="review-title">VP Sales, GrowthCo</div>
+                      </div>
+                    </div>
+                  </motion.div>
 
-              <div className="review-card">
-                <p className="review-text">"Saved us months of trial and error. Their expertise is unmatched."</p>
-                <div className="review-author">
-                  <img className="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
-                  <div>
-                    <div className="review-name">David Park</div>
-                    <div className="review-title">Founder, ScaleUp</div>
-                  </div>
-                </div>
-              </div>
+                  <motion.div 
+                    className="review-card"
+                    custom={2}
+                    initial="hidden"
+                    animate="visible"
+                    variants={reviewCard}
+                  >
+                    <p className="review-text">"Saved us months of trial and error. Their expertise is unmatched."</p>
+                    <div className="review-author">
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <div>
+                        <div className="review-name">David Park</div>
+                        <div className="review-title">Founder, ScaleUp</div>
+                      </div>
+                    </div>
+                  </motion.div>
 
-              <div className="review-card">
-                <p className="review-text">"Incredible results. Our sales pipeline has never been healthier."</p>
-                <div className="review-author">
-                  <img className="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
-                  <div>
-                    <div className="review-name">Emma Rodriguez</div>
-                    <div className="review-title">COO, MarketLeap</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <motion.div 
+                    className="review-card"
+                    custom={3}
+                    initial="hidden"
+                    animate="visible"
+                    variants={reviewCard}
+                  >
+                    <p className="review-text">"Incredible results. Our sales pipeline has never been healthier."</p>
+                    <div className="review-author">
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <div>
+                        <div className="review-name">Emma Rodriguez</div>
+                        <div className="review-title">COO, MarketLeap</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </section>
 
         <section className="final-cta" aria-labelledby="final-cta-heading">
-          <div className="final-cta-art" aria-hidden="true"></div>
+          <motion.div 
+            className="final-cta-art" 
+            aria-hidden="true"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+          />
           <div className="container final-cta-inner">
-            <p className="eyebrow">Work with us</p>
-            <h2 id="final-cta-heading" className="final-cta-title">Start with a free, thirty minute growth mapping call.</h2>
-            <Link className="button button-on-dark" href="/book">
+            <motion.p 
+              className="eyebrow"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Work with us
+            </motion.p>
+            <motion.h2 
+              id="final-cta-heading" 
+              className="final-cta-title"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUp}
+            >
+              Start with a free, thirty minute growth mapping call.
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Link className="button button-on-dark" href="/book">
               <span>Let's talk</span>
               <span className="circle-arrow circle-arrow-on-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -232,7 +448,8 @@ export default function Home() {
                   <path d="M8 7h9v9"></path>
                 </svg>
               </span>
-            </Link>
+              </Link>
+            </motion.div>
           </div>
         </section>
       </main>
@@ -268,32 +485,6 @@ export default function Home() {
         </div>
       </footer>
 
-      <Script id="scroll-animations" strategy="afterInteractive">
-        {`
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-              }
-            });
-          }, { threshold: 0.2 });
-
-          document.querySelectorAll('.hero-title, .about-title, .services-title, .testimonials-title, .final-cta-title').forEach(title => {
-            observer.observe(title);
-          });
-
-          const btn = document.getElementById('seeMoreBtn');
-          if (btn) {
-            btn.addEventListener('click', function() {
-              const additionalReviews = document.getElementById('additionalReviews');
-              if (additionalReviews) {
-                additionalReviews.classList.toggle('show');
-                this.classList.toggle('hidden');
-              }
-            });
-          }
-        `}
-      </Script>
     </>
   )
 }
