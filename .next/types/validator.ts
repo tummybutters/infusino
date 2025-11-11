@@ -74,6 +74,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/api/calendar/availability/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/calendar/availability">> = Specific
+  const handler = {} as typeof import("../../app/api/calendar/availability/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/calendar/book/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/calendar/book">> = Specific
+  const handler = {} as typeof import("../../app/api/calendar/book/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 
 
 
