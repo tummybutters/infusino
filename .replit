@@ -1,10 +1,11 @@
 modules = ["nodejs-20", "python-3.11", "web"]
 [agent]
 expertMode = true
+integrations = ["google-calendar:1.0.0"]
 
 [nix]
 channel = "stable-25_05"
-packages = ["codex"]
+packages = ["codex", "nano"]
 
 [workflows]
 runButton = "Project"
@@ -35,7 +36,7 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 34903
+localPort = 46613
 externalPort = 3000
 
 [deployment]

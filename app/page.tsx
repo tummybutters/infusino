@@ -75,13 +75,26 @@ export default function Home() {
 
       <main>
         <section className="hero" id="home">
-          <motion.div 
-            className="hero-bg" 
-            aria-hidden="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2 }}
-          />
+          <div className="hero-bg" aria-hidden="true">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="hero-video"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                zIndex: -1
+              }}
+            >
+              <source src="/hero-background.mp4" type="video/mp4" />
+            </video>
+          </div>
           <div className="container hero-inner">
             <motion.h1 
               className="hero-title"
