@@ -1,3 +1,5 @@
 {
-  "/page": "app/page.js"
+  "/api/book-appointment/route": "app/api/book-appointment/route.js",
+  "/page": "app/page.js",
+  "/book/page": "app/book/page.js"
 }
