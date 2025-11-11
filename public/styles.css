@@ -379,34 +379,101 @@ body {
 @media (min-width: 768px) {
   .services-grid { 
     grid-template-columns: 1fr 1fr; 
-    gap: 20px; 
+    gap: 0; 
   }
 }
 
 .service-box {
   position: relative;
   min-height: clamp(280px, 35vw, 400px);
-  border-radius: 24px;
   overflow: hidden;
+  transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, z-index 0s;
+  z-index: 1;
+}
+
+/* Background image layer that zooms on hover */
+.service-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  transition: transform 0.5s ease-out;
+  z-index: 0;
 }
 
-.service-lead {
-  background-image: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('/attached_assets/stock_images/business_person_work_fa876c2b.jpg');
+/* Overlay gradient that sits above the background */
+.service-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  transition: background 0.5s ease-out;
+  z-index: 1;
 }
 
-.service-project {
-  background-image: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('/attached_assets/stock_images/project_management_t_6fadeba2.jpg');
+/* Hover effects */
+.service-box:hover {
+  transform: scale(1.025);
+  z-index: 10;
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.25),
+    0 20px 40px rgba(0,0,0,0.15);
 }
 
-.service-hiring {
-  background-image: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('/attached_assets/stock_images/professional_hiring__68938838.jpg');
+.service-box:hover::before {
+  transform: scale(1.08);
 }
 
-.service-sales {
-  background-image: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('/attached_assets/stock_images/sales_team_working_w_35975b51.jpg');
+.service-box:hover::after {
+  background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+}
+
+/* Corner-specific border radius for touching quadrants */
+/* Mobile: all boxes get full radius since they stack */
+.service-box {
+  border-radius: 24px;
+}
+
+/* Desktop: touching quadrants with corner-specific radius */
+@media (min-width: 768px) {
+  .service-box {
+    border-radius: 0;
+  }
+  
+  .service-box:nth-child(1) {
+    border-radius: 24px 0 0 0;
+  }
+
+  .service-box:nth-child(2) {
+    border-radius: 0 24px 0 0;
+  }
+
+  .service-box:nth-child(3) {
+    border-radius: 0 0 0 24px;
+  }
+
+  .service-box:nth-child(4) {
+    border-radius: 0 0 24px 0;
+  }
+}
+
+/* Background images for each service */
+.service-lead::before {
+  background-image: url('/attached_assets/stock_images/business_person_work_fa876c2b.jpg');
+}
+
+.service-project::before {
+  background-image: url('/attached_assets/stock_images/project_management_t_6fadeba2.jpg');
+}
+
+.service-hiring::before {
+  background-image: url('/attached_assets/stock_images/professional_hiring__68938838.jpg');
+}
+
+.service-sales::before {
+  background-image: url('/attached_assets/stock_images/sales_team_working_w_35975b51.jpg');
 }
 
 .service-overlay {
@@ -417,6 +484,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   color: #ffffff;
+  z-index: 2;
 }
 
 .service-heading {
