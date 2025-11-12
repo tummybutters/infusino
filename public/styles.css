@@ -767,15 +767,72 @@ body {
   margin: 0 0 20px 0;
   color: #0b0b0b;
 }
+.modal-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 28px;
+}
 
-.modal-summary {
-  font-size: clamp(16px, 2vw, 18px);
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-section-title {
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 0;
+}
+
+.modal-section p {
+  margin: 0;
+  font-size: clamp(15px, 1.9vw, 17px);
   line-height: 1.7;
   color: #1f2937;
-  margin: 0 0 28px 0;
+}
+
+.modal-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: clamp(15px, 1.9vw, 17px);
+  color: #1f2937;
+}
+
+.modal-list li {
+  line-height: 1.7;
+}
+
+.modal-list li::marker {
+  color: #0b0b0b;
+}
+
+.modal-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.08);
+  color: #0b0b0b;
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid rgba(15,23,42,0.12);
 }
 
 .modal-client-info {
+  margin-top: 8px;
   padding-top: 24px;
   border-top: 1px solid rgba(0,0,0,0.08);
 }

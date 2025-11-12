@@ -52,30 +52,76 @@ export default function Home() {
 
   const testimonials = {
     website: {
-      quote: "Tommy and his team completely changed how we get clients. I used to spend hours cold calling and got maybe 2-3 leads a week. Now I'm literally turning people away because we're at capacity. It's wild.",
+      quote: "Tommy and Qortana found automations we didn't know existed. Fifteen hours of admin work vanished every week.",
       client: "Sarah M.",
       role: "Website Development Agency Owner",
-      summary: "We built a cold outreach system that identified high-intent local businesses, personalized each email using real-time firmographic data, and fed responses into a CRM with AI triage. Their inbound doubled in 30 days, CAC dropped by 70%."
+      goal: "Keep our project pipeline full without spending nights on manual outreach.",
+      implementation: [
+        "Tracked net-new local businesses with Apify scrapers and enrichment.",
+        "Auto-personalized Instantly sequences using fresh firmographic data.",
+        "Routed replies into HubSpot where a GPT assistant tagged intent and launched follow-ups."
+      ],
+      stack: ["Apify monitors", "Instantly sequences", "HubSpot CRM", "GPT triage agent"],
+      metrics: [
+        "Qualified intro calls per week: 17 (previously 6)",
+        "Proposal close rate up 19% after 45 days",
+        "Manual outreach time down 12 hours each week"
+      ]
     },
     realestate: {
-      quote: "I didn't even know some of this stuff was possible. Tommy walked me through everything, and now we have a content system that takes an idea and turns it into 30+ videos a month. People think we hired a whole team—it's just automation done right.",
+      quote: "I didn't know most of this was possible. Qortana made daily content almost zero effort.",
       client: "Marcus T.",
-      role: "Real Estate Agency",
-      summary: "Built an AI voice+video pipeline that replicated the founder's tone and face, turning local housing data and market news into daily posts. Output 30+ videos/month, each customized by zip code. Agents use it for hyper-local branding and trust."
+      role: "Real Estate Agency Founder",
+      goal: "Publish consistent hyper-local video updates without the founder recording every day.",
+      implementation: [
+        "Pulled MLS and market feeds into Airtable using n8n automations.",
+        "Used GPT-4 and ElevenLabs to write and voice scripts in the founder's tone.",
+        "Rendered presenter videos with Synthesia and scheduled posts automatically."
+      ],
+      stack: ["n8n automations", "Airtable editorial hub", "GPT-4 scripting", "ElevenLabs voice", "Synthesia avatars"],
+      metrics: [
+        "Video output: 26 local clips per month (up from 5)",
+        "Inbound DMs referencing market updates up 3x",
+        "Founder time on content down 8 hours weekly"
+      ]
     },
     photography: {
-      quote: "We were losing so many bookings because I couldn't respond fast enough. Someone would text at 10 PM and by morning they'd already booked another photographer. This system catches them instantly and my conversion rate literally went up 4x.",
+      quote: "We finally stopped missing late-night leads. Qortana's automations reply before I even see the text.",
       client: "Jessica L.",
       role: "Photography Studio Owner",
-      summary: "Integrated Google Ads leads with an SMS AI concierge that chats with prospects, captures details (event type, date, budget), and alerts the owner only when the lead is ready to book. Conversion rate from inquiry → deposit rose 4×."
+      goal: "Respond to every inquiry within minutes without staying glued to the phone.",
+      implementation: [
+        "Captured Google Ads form fills and SMS pings through n8n workflows.",
+        "Twilio concierge qualified each lead for event type, date, and budget.",
+        "Synced ready-to-book conversations into Notion CRM with Slack nudges."
+      ],
+      stack: ["Google Ads webhooks", "Twilio SMS concierge", "n8n routing", "Notion CRM", "Slack alerts"],
+      metrics: [
+        "Median response time now 52 seconds (was several hours)",
+        "Inquiry-to-deposit conversion up 2.4x",
+        "Owner reclaimed about 9 hours of follow-up each week"
+      ]
     },
     ecommerce: {
-      quote: "Customer support was eating up all my time. Like 4-5 hours a day just answering the same questions. Now the AI handles everything and actually upsells people better than I did. It's crazy how much time I got back.",
+      quote: "Support used to be a wall. Now tickets turn into repeat orders thanks to Qortana.",
       client: "David K.",
       role: "E-commerce Brand Owner",
-      summary: "Connected Shopify, Gmail, and WhatsApp into one AI support layer that recognizes repeat customers, processes returns automatically, and recommends related products. Saved ~25 hours/week of manual replies."
+      goal: "Clear the support queue without hiring another agent.",
+      implementation: [
+        "Unified Shopify, Gmail, and WhatsApp threads through n8n orchestration.",
+        "Surfaced order context via Apify warranty checks and customer lookups.",
+        "Let a fine-tuned GPT agent draft responses inside Gorgias with upsell cues."
+      ],
+      stack: ["Shopify Admin API", "Gorgias", "WhatsApp Business API", "Apify warranty monitor", "GPT support agent", "n8n orchestration"],
+      metrics: [
+        "Average resolution time down 41%",
+        "Repeat purchase rate up 11% in eight weeks",
+        "Team saved roughly 16 support hours per week"
+      ]
     }
   }
+
+  const activeTestimonial = activeModal ? testimonials[activeModal as keyof typeof testimonials] : null
 
   return (
     <>
@@ -517,16 +563,45 @@ export default function Home() {
                 </button>
                 
                 <h3 className="modal-title">The Solution</h3>
-                <p className="modal-summary">
-                  {testimonials[activeModal as keyof typeof testimonials]?.summary}
-                </p>
+                {activeTestimonial && (
+                  <div className="modal-sections">
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">Goal</h4>
+                      <p>{activeTestimonial.goal}</p>
+                    </div>
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">What we implemented</h4>
+                      <ul className="modal-list">
+                        {activeTestimonial.implementation.map(item => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">Stack highlights</h4>
+                      <div className="modal-chip-row">
+                        {activeTestimonial.stack.map(tool => (
+                          <span className="modal-chip" key={tool}>{tool}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">Results (first 60 days)</h4>
+                      <ul className="modal-list">
+                        {activeTestimonial.metrics.map(metric => (
+                          <li key={metric}>{metric}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="modal-client-info">
                   <div className="modal-client-name">
-                    {testimonials[activeModal as keyof typeof testimonials]?.client}
+                    {activeTestimonial?.client}
                   </div>
                   <div className="modal-client-role">
-                    {testimonials[activeModal as keyof typeof testimonials]?.role}
+                    {activeTestimonial?.role}
                   </div>
                 </div>
               </motion.div>
