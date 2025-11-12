@@ -12,6 +12,8 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 export default function BookAppointment() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
+  const [email, setEmail] = useState<string>('')
+  const [intention, setIntention] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [bookingConfirmed, setBookingConfirmed] = useState(false)
 
@@ -42,7 +44,7 @@ export default function BookAppointment() {
   }
 
   const handleContinue = async () => {
-    if (!date || !selectedTime) return
+    if (!date || !selectedTime || !email || !intention) return
 
     setIsLoading(true)
     try {
@@ -55,6 +57,8 @@ export default function BookAppointment() {
         body: JSON.stringify({
           date: date.toISOString(),
           time: selectedTime,
+          email: email,
+          intention: intention,
         }),
       })
 
@@ -66,23 +70,26 @@ export default function BookAppointment() {
           // window.location.href = '/'
         }, 2000)
       } else {
-        alert('Failed to book appointment. Please try again.')
+        // Get the actual error message from the API
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+        console.error('API Error:', errorData)
+        alert(`Failed to book appointment: ${errorData.error || 'Please try again.'}\n\nDetails: ${errorData.details || 'No additional details'}`)
       }
     } catch (error) {
       console.error('Booking error:', error)
-      alert('An error occurred. Please try again.')
+      alert(`An error occurred: ${error instanceof Error ? error.message : 'Please try again.'}`)
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-12 px-4">
+    <div className="min-h-screen bg-black py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to home
@@ -90,10 +97,10 @@ export default function BookAppointment() {
         </div>
 
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">
+          <h1 className="text-4xl font-bold text-white mb-3">
             Schedule Your Growth Mapping Call
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
+          <p className="text-lg text-slate-300">
             Book a free 30-minute consultation with our AI growth experts
           </p>
         </div>
@@ -137,6 +144,42 @@ export default function BookAppointment() {
               </ScrollArea>
             </div>
           </CardContent>
+          <div className='px-6 py-4 border-t space-y-4'>
+            <div className='space-y-2'>
+              <label htmlFor='email' className='text-sm font-medium text-slate-700 dark:text-slate-300'>
+                Email Address
+              </label>
+              <input
+                id='email'
+                type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder='your.email@example.com'
+                className='w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:text-white transition-all duration-200'
+                required
+              />
+            </div>
+            <div className='space-y-2'>
+              <label htmlFor='intention' className='text-sm font-medium text-slate-700 dark:text-slate-300'>
+                What brings you here?
+              </label>
+              <select
+                id='intention'
+                value={intention}
+                onChange={(e) => setIntention(e.target.value)}
+                className='w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:text-white transition-all duration-200'
+                required
+              >
+                <option value=''>Select an option...</option>
+                <option value='new-business'>New Business Inquiry</option>
+                <option value='grow-sales'>Looking to Grow Sales</option>
+                <option value='ai-automation'>AI & Automation Solutions</option>
+                <option value='consultation'>General Consultation</option>
+                <option value='partnership'>Partnership Opportunity</option>
+                <option value='other'>Other</option>
+              </select>
+            </div>
+          </div>
           <CardFooter className='flex flex-col gap-4 border-t px-6 !py-5 md:flex-row'>
             <div className='flex items-center gap-2 text-sm'>
               {bookingConfirmed ? (
@@ -146,7 +189,7 @@ export default function BookAppointment() {
                     Booking confirmed! Check your email for details.
                   </span>
                 </>
-              ) : date && selectedTime ? (
+              ) : date && selectedTime && email && intention ? (
                 <>
                   <CircleCheckIcon className='size-5 stroke-blue-600 dark:stroke-blue-400' />
                   <span>
@@ -162,11 +205,11 @@ export default function BookAppointment() {
                   </span>
                 </>
               ) : (
-                <>Select a date and time for your meeting.</>
+                <>Complete all fields to continue.</>
               )}
             </div>
             <Button 
-              disabled={!date || !selectedTime || isLoading || bookingConfirmed} 
+              disabled={!date || !selectedTime || !email || !intention || isLoading || bookingConfirmed} 
               onClick={handleContinue}
               className='w-full md:ml-auto md:w-auto transition-all duration-200 hover:scale-105 active:scale-95 disabled:hover:scale-100' 
               variant='outline'
@@ -184,7 +227,7 @@ export default function BookAppointment() {
             </Button>
           </CardFooter>
         </Card>
-        <p className='text-muted-foreground mt-4 text-center text-xs' role='region'>
+        <p className='text-slate-500 mt-4 text-center text-xs' role='region'>
           Appointment calendar
         </p>
       </div>

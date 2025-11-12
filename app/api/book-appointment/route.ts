@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createCalendarEvent } from '@/lib/google-calendar'
 
-// This endpoint will integrate with Google Calendar via Replit's connector
+// This endpoint integrates with Google Calendar via Replit's connector
 export async function POST(request: NextRequest) {
   try {
-    const { date, time } = await request.json()
+    const { date, time, email, intention } = await request.json()
 
-    if (!date || !time) {
+    if (!date || !time || !email || !intention) {
       return NextResponse.json(
-        { error: 'Date and time are required' },
+        { error: 'Date, time, email, and intention are required' },
         { status: 400 }
       )
     }
@@ -24,10 +25,20 @@ export async function POST(request: NextRequest) {
     const endDateTime = new Date(startDateTime)
     endDateTime.setMinutes(endDateTime.getMinutes() + 30)
 
+    // Map intention to readable text
+    const intentionMap: { [key: string]: string } = {
+      'new-business': 'New Business Inquiry',
+      'grow-sales': 'Looking to Grow Sales',
+      'ai-automation': 'AI & Automation Solutions',
+      'consultation': 'General Consultation',
+      'partnership': 'Partnership Opportunity',
+      'other': 'Other'
+    }
+
     // Google Calendar event details
     const event = {
       summary: 'Growth Mapping Call - Infusino',
-      description: 'Free 30-minute consultation with our AI growth experts',
+      description: `Free 30-minute consultation with our AI growth experts\n\nCustomer Email: ${email}\nPurpose: ${intentionMap[intention] || intention}`,
       start: {
         dateTime: startDateTime.toISOString(),
         timeZone: 'America/New_York', // Adjust to your timezone
@@ -37,63 +48,18 @@ export async function POST(request: NextRequest) {
         timeZone: 'America/New_York', // Adjust to your timezone
       },
       attendees: [
-        // Add attendee email from form submission if needed
-        // { email: 'client@example.com' }
+        { email: email }
       ],
-      reminders: {
-        useDefault: false,
-        overrides: [
-          { method: 'email', minutes: 24 * 60 }, // 1 day before
-          { method: 'popup', minutes: 30 }, // 30 minutes before
-        ],
-      },
     }
 
-    // When using Replit's Google Calendar connector, you'll access it via environment variables
-    // The connector should provide a way to create calendar events
-    
-    // For Replit's connector, you typically use their API like this:
-    // const calendarApiUrl = process.env.GOOGLE_CALENDAR_API_URL
-    // const apiKey = process.env.GOOGLE_CALENDAR_API_KEY
-    
-    // Example integration with Replit connector:
+    // Use Replit's Google Calendar connector
     const calendarId = process.env.GOOGLE_CALENDAR_ID || 'primary'
-    const accessToken = process.env.GOOGLE_CALENDAR_ACCESS_TOKEN
     
-    if (!accessToken) {
-      console.error('Google Calendar access token not configured')
-      return NextResponse.json(
-        { error: 'Calendar integration not configured. Please set up the Google Calendar connector in Replit.' },
-        { status: 500 }
-      )
-    }
+    // Create the calendar event using the proper Replit connector
+    const createdEvent = await createCalendarEvent(calendarId, event)
 
-    // Make request to Google Calendar API
-    const response = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(event),
-      }
-    )
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      console.error('Google Calendar API error:', errorData)
-      return NextResponse.json(
-        { error: 'Failed to create calendar event', details: errorData },
-        { status: response.status }
-      )
-    }
-
-    const createdEvent = await response.json()
-
-    // Optionally send confirmation email here
-    // You can integrate with SendGrid, Resend, or another email service
+    // Note: Email notifications will be sent automatically by Google Calendar
+    // to the attendees (customer email) with the calendar invite
 
     return NextResponse.json({
       success: true,
@@ -103,8 +69,19 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error booking appointment:', error)
+    
+    // Provide more helpful error messages
+    let errorMessage = 'Internal server error'
+    let errorDetails = error instanceof Error ? error.message : 'Unknown error'
+    
+    if (errorDetails.includes('Google Calendar not connected')) {
+      errorMessage = 'Calendar integration not configured. Please set up the Google Calendar connector in Replit.'
+    } else if (errorDetails.includes('X_REPLIT_TOKEN not found')) {
+      errorMessage = 'Replit environment not properly configured. Check REPL_IDENTITY or WEB_REPL_RENEWAL environment variables.'
+    }
+    
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: errorMessage, details: errorDetails },
       { status: 500 }
     )
   }
@@ -123,15 +100,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const accessToken = process.env.GOOGLE_CALENDAR_ACCESS_TOKEN
     const calendarId = process.env.GOOGLE_CALENDAR_ID || 'primary'
-
-    if (!accessToken) {
-      return NextResponse.json(
-        { error: 'Calendar integration not configured' },
-        { status: 500 }
-      )
-    }
 
     // Get events for the specified date to check availability
     const selectedDate = new Date(date)
@@ -141,27 +110,13 @@ export async function GET(request: NextRequest) {
     const endOfDay = new Date(selectedDate)
     endOfDay.setHours(23, 59, 59, 999)
 
-    const response = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?timeMin=${startOfDay.toISOString()}&timeMax=${endOfDay.toISOString()}&singleEvents=true`,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      }
-    )
+    const { getCalendarEvents } = await import('@/lib/google-calendar')
+    const events = await getCalendarEvents(calendarId, startOfDay, endOfDay)
 
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Failed to fetch calendar events' },
-        { status: response.status }
-      )
-    }
-
-    const data = await response.json()
-    const bookedSlots = data.items?.map((event: any) => ({
-      start: event.start.dateTime,
-      end: event.end.dateTime,
-    })) || []
+    const bookedSlots = events.map((event: any) => ({
+      start: event.start?.dateTime,
+      end: event.end?.dateTime,
+    }))
 
     return NextResponse.json({
       success: true,
@@ -170,7 +125,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching available slots:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
