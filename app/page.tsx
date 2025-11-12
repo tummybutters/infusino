@@ -48,6 +48,35 @@ const reviewCard = {
 
 export default function Home() {
   const [showMoreReviews, setShowMoreReviews] = useState(false)
+  const [activeModal, setActiveModal] = useState<string | null>(null)
+
+  const testimonials = {
+    website: {
+      quote: "Tommy and his team completely changed how we get clients. I used to spend hours cold calling and got maybe 2-3 leads a week. Now I'm literally turning people away because we're at capacity. It's wild.",
+      client: "Sarah M.",
+      role: "Website Development Agency Owner",
+      summary: "We built a cold outreach system that identified high-intent local businesses, personalized each email using real-time firmographic data, and fed responses into a CRM with AI triage. Their inbound doubled in 30 days, CAC dropped by 70%."
+    },
+    realestate: {
+      quote: "I didn't even know some of this stuff was possible. Tommy walked me through everything, and now we have a content system that takes an idea and turns it into 30+ videos a month. People think we hired a whole team—it's just automation done right.",
+      client: "Marcus T.",
+      role: "Real Estate Agency",
+      summary: "Built an AI voice+video pipeline that replicated the founder's tone and face, turning local housing data and market news into daily posts. Output 30+ videos/month, each customized by zip code. Agents use it for hyper-local branding and trust."
+    },
+    photography: {
+      quote: "We were losing so many bookings because I couldn't respond fast enough. Someone would text at 10 PM and by morning they'd already booked another photographer. This system catches them instantly and my conversion rate literally went up 4x.",
+      client: "Jessica L.",
+      role: "Photography Studio Owner",
+      summary: "Integrated Google Ads leads with an SMS AI concierge that chats with prospects, captures details (event type, date, budget), and alerts the owner only when the lead is ready to book. Conversion rate from inquiry → deposit rose 4×."
+    },
+    ecommerce: {
+      quote: "Customer support was eating up all my time. Like 4-5 hours a day just answering the same questions. Now the AI handles everything and actually upsells people better than I did. It's crazy how much time I got back.",
+      client: "David K.",
+      role: "E-commerce Brand Owner",
+      summary: "Connected Shopify, Gmail, and WhatsApp into one AI support layer that recognizes repeat customers, processes returns automatically, and recommends related products. Saved ~25 hours/week of manual replies."
+    }
+  }
+
   return (
     <>
       <link rel="stylesheet" href="/styles.css" />
@@ -283,27 +312,33 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="logo-badge">fatjoe.</div>
-              <div className="logo-badge">Scaling™</div>
+              <div className="logo-badge">Website Agency</div>
+              <div className="logo-badge">Real Estate</div>
+              <div className="logo-badge">Photography</div>
+              <div className="logo-badge">E-commerce</div>
             </motion.div>
 
             <motion.div 
-              className="testimonial-frame"
+              className="testimonial-frame clickable"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.3 }}
+              onClick={() => setActiveModal('website')}
+              whileHover={{ scale: 1.01 }}
+              style={{ cursor: 'pointer' }}
             >
               <blockquote className="quote">
-                <p>"Nick & the Qortana team knows their stuff. Their AI systems are incredible."</p>
+                <p>"{testimonials.website.quote}"</p>
               </blockquote>
               <div className="quote-author">
-                <img className="avatar" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=300&auto=format&fit=crop" alt="Client avatar" loading="lazy" />
+                <img className="avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop" alt="Website Development Agency" loading="lazy" />
                 <div className="author-meta">
-                  <div className="author-name">Joe Davies</div>
-                  <div className="author-title">Cofounder, FATJOE</div>
+                  <div className="author-name">{testimonials.website.client}</div>
+                  <div className="author-title">{testimonials.website.role}</div>
                 </div>
               </div>
+              <div className="click-hint">Click to see the solution →</div>
             </motion.div>
 
             {!showMoreReviews && (
@@ -337,71 +372,66 @@ export default function Home() {
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
                   <motion.div 
-                    className="review-card"
+                    className="review-card clickable"
                     custom={0}
                     initial="hidden"
                     animate="visible"
                     variants={reviewCard}
+                    onClick={() => setActiveModal('realestate')}
+                    whileHover={{ scale: 1.02 }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <p className="review-text">"The AI systems they built transformed our lead generation. ROI was immediate."</p>
+                    <p className="review-text">"{testimonials.realestate.quote}"</p>
                     <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop" alt="Real Estate Agency" loading="lazy" />
                       <div>
-                        <div className="review-name">Michael Chen</div>
-                        <div className="review-title">CEO, TechFlow</div>
+                        <div className="review-name">{testimonials.realestate.client}</div>
+                        <div className="review-title">{testimonials.realestate.role}</div>
                       </div>
                     </div>
+                    <div className="click-hint">Click to see the solution →</div>
                   </motion.div>
 
                   <motion.div 
-                    className="review-card"
+                    className="review-card clickable"
                     custom={1}
                     initial="hidden"
                     animate="visible"
                     variants={reviewCard}
+                    onClick={() => setActiveModal('photography')}
+                    whileHover={{ scale: 1.02 }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <p className="review-text">"Best consulting investment we've made. Their framework actually works."</p>
+                    <p className="review-text">"{testimonials.photography.quote}"</p>
                     <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop" alt="Photography Studio" loading="lazy" />
                       <div>
-                        <div className="review-name">Sarah Williams</div>
-                        <div className="review-title">VP Sales, GrowthCo</div>
+                        <div className="review-name">{testimonials.photography.client}</div>
+                        <div className="review-title">{testimonials.photography.role}</div>
                       </div>
                     </div>
+                    <div className="click-hint">Click to see the solution →</div>
                   </motion.div>
 
                   <motion.div 
-                    className="review-card"
+                    className="review-card clickable"
                     custom={2}
                     initial="hidden"
                     animate="visible"
                     variants={reviewCard}
+                    onClick={() => setActiveModal('ecommerce')}
+                    whileHover={{ scale: 1.02 }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <p className="review-text">"Saved us months of trial and error. Their expertise is unmatched."</p>
+                    <p className="review-text">"{testimonials.ecommerce.quote}"</p>
                     <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
+                      <img className="review-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&auto=format&fit=crop" alt="E-commerce Brand" loading="lazy" />
                       <div>
-                        <div className="review-name">David Park</div>
-                        <div className="review-title">Founder, ScaleUp</div>
+                        <div className="review-name">{testimonials.ecommerce.client}</div>
+                        <div className="review-title">{testimonials.ecommerce.role}</div>
                       </div>
                     </div>
-                  </motion.div>
-
-                  <motion.div 
-                    className="review-card"
-                    custom={3}
-                    initial="hidden"
-                    animate="visible"
-                    variants={reviewCard}
-                  >
-                    <p className="review-text">"Incredible results. Our sales pipeline has never been healthier."</p>
-                    <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop" alt="Client" loading="lazy" />
-                      <div>
-                        <div className="review-name">Emma Rodriguez</div>
-                        <div className="review-title">COO, MarketLeap</div>
-                      </div>
-                    </div>
+                    <div className="click-hint">Click to see the solution →</div>
                   </motion.div>
                 </motion.div>
               )}
@@ -456,6 +486,53 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+
+        {/* Modal for testimonial details */}
+        <AnimatePresence>
+          {activeModal && (
+            <motion.div 
+              className="modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveModal(null)}
+            >
+              <motion.div 
+                className="modal-content"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button 
+                  className="modal-close" 
+                  onClick={() => setActiveModal(null)}
+                  aria-label="Close modal"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                
+                <h3 className="modal-title">The Solution</h3>
+                <p className="modal-summary">
+                  {testimonials[activeModal as keyof typeof testimonials]?.summary}
+                </p>
+                
+                <div className="modal-client-info">
+                  <div className="modal-client-name">
+                    {testimonials[activeModal as keyof typeof testimonials]?.client}
+                  </div>
+                  <div className="modal-client-role">
+                    {testimonials[activeModal as keyof typeof testimonials]?.role}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <footer className="site-footer" id="contact">
