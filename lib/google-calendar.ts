@@ -67,12 +67,15 @@ export async function createCalendarEvent(calendarId: string = 'primary', event:
   start: { dateTime: string; timeZone?: string };
   end: { dateTime: string; timeZone?: string };
   attendees?: { email: string }[];
+  organizer?: { email: string; displayName?: string };
+  [key: string]: any; // Allow additional Google Calendar API fields
 }) {
   const calendar = await getUncachableGoogleCalendarClient();
   
   const response = await calendar.events.insert({
     calendarId,
     requestBody: event,
+    sendUpdates: 'all', // Ensure email notifications are sent
   });
 
   return response.data;

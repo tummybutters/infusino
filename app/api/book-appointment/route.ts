@@ -35,10 +35,34 @@ export async function POST(request: NextRequest) {
       'other': 'Other'
     }
 
-    // Google Calendar event details
+    // Google Calendar event details with professional description
     const event = {
       summary: 'Growth Mapping Call - Infusino',
-      description: `Free 30-minute consultation with our AI growth experts\n\nCustomer Email: ${email}\nPurpose: ${intentionMap[intention] || intention}`,
+      description: `Hi there,
+
+Looking forward to our Growth Mapping Call. This 30-minute session is designed to understand your business and identify opportunities for automation and growth.
+
+What We'll Cover:
+• Your current business operations and daily workflows
+• Key areas where automation could save time and increase efficiency
+• Growth strategies tailored to your specific needs
+• Next steps for implementing AI solutions
+
+To Get the Most From Our Call:
+Take a few minutes before our meeting to think about:
+- Daily tasks you wish could be automated
+- Current bottlenecks in your business processes
+- An overview of the different parts of your business
+
+Purpose: ${intentionMap[intention] || intention}
+
+---
+Tommy Butcher
+Founder, Infusino
+Email: tommyboybutcher@gmail.com
+Phone: [Your phone number]
+
+We're here to help you scale smarter.`,
       start: {
         dateTime: startDateTime.toISOString(),
         timeZone: 'America/New_York', // Adjust to your timezone
@@ -50,6 +74,10 @@ export async function POST(request: NextRequest) {
       attendees: [
         { email: email }
       ],
+      organizer: {
+        email: 'tommyboybutcher@gmail.com',
+        displayName: 'Tommy Butcher - Infusino'
+      }
     }
 
     // Use Replit's Google Calendar connector
@@ -113,10 +141,18 @@ export async function GET(request: NextRequest) {
     const { getCalendarEvents } = await import('@/lib/google-calendar')
     const events = await getCalendarEvents(calendarId, startOfDay, endOfDay)
 
-    const bookedSlots = events.map((event: any) => ({
-      start: event.start?.dateTime,
-      end: event.end?.dateTime,
-    }))
+    // Filter only sales calls from the website (Growth Mapping Call events)
+    const salesCallEvents = events.filter((event: any) => 
+      event.summary?.includes('Growth Mapping Call') || 
+      event.summary?.includes('Infusino')
+    )
+
+    const bookedSlots = salesCallEvents
+      .filter((event: any) => event.start?.dateTime && event.end?.dateTime)
+      .map((event: any) => ({
+        start: event.start.dateTime,
+        end: event.end.dateTime,
+      }))
 
     return NextResponse.json({
       success: true,

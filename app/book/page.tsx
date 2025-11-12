@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CircleCheckIcon, ArrowLeft, Loader2 } from 'lucide-react'
 
@@ -16,6 +16,8 @@ export default function BookAppointment() {
   const [intention, setIntention] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [bookingConfirmed, setBookingConfirmed] = useState(false)
+  const [bookedSlots, setBookedSlots] = useState<{ start: string; end: string }[]>([])
+  const [loadingSlots, setLoadingSlots] = useState(false)
 
   // Generate time slots from 7:00 AM to 7:00 PM (12 hours * 4 slots per hour + 1 for 7:00 PM)
   const timeSlots = Array.from({ length: 49 }, (_, i) => {
@@ -25,6 +27,47 @@ export default function BookAppointment() {
 
     return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
   })
+
+  // Fetch booked slots when date changes
+  const fetchBookedSlots = async (selectedDate: Date) => {
+    setLoadingSlots(true)
+    try {
+      const response = await fetch(`/api/book-appointment?date=${selectedDate.toISOString()}`)
+      if (response.ok) {
+        const data = await response.json()
+        setBookedSlots(data.bookedSlots || [])
+      }
+    } catch (error) {
+      console.error('Error fetching booked slots:', error)
+    } finally {
+      setLoadingSlots(false)
+    }
+  }
+
+  // Check if a time slot is booked
+  const isTimeSlotBooked = (time: string) => {
+    if (!date) return false
+    
+    const [hours, minutes] = time.split(':').map(Number)
+    const slotDateTime = new Date(date)
+    slotDateTime.setHours(hours, minutes, 0, 0)
+    
+    return bookedSlots.some(slot => {
+      const slotStart = new Date(slot.start)
+      const slotEnd = new Date(slot.end)
+      return slotDateTime >= slotStart && slotDateTime < slotEnd
+    })
+  }
+
+  // Fetch booked slots when date changes
+  useEffect(() => {
+    if (date) {
+      fetchBookedSlots(date)
+      setSelectedTime(null) // Reset selected time when date changes
+    } else {
+      setBookedSlots([])
+    }
+  }, [date])
 
   // Function to disable Sundays
   const disableSundays = (date: Date) => {
@@ -129,17 +172,30 @@ export default function BookAppointment() {
             <div className='inset-y-0 right-0 flex w-full flex-col gap-4 border-t max-md:h-60 md:absolute md:w-48 md:border-t-0 md:border-l'>
               <ScrollArea className='h-full'>
                 <div className='flex flex-col gap-2 p-6'>
-                  {timeSlots.map(time => (
-                    <Button
-                      key={time}
-                      variant={selectedTime === time ? 'default' : 'outline'}
-                      onClick={() => setSelectedTime(time)}
-                      disabled={!date}
-                      className='w-full shadow-none transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md disabled:hover:scale-100 disabled:hover:shadow-none'
-                    >
-                      {time}
-                    </Button>
-                  ))}
+                  {loadingSlots && date ? (
+                    <div className='flex items-center justify-center py-8 text-sm text-slate-500'>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                      Checking availability...
+                    </div>
+                  ) : (
+                    timeSlots.map(time => {
+                      const isBooked = isTimeSlotBooked(time)
+                      return (
+                        <Button
+                          key={time}
+                          variant={selectedTime === time ? 'default' : 'outline'}
+                          onClick={() => !isBooked && setSelectedTime(time)}
+                          disabled={!date || isBooked}
+                          className={`w-full shadow-none transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md disabled:hover:scale-100 disabled:hover:shadow-none ${
+                            isBooked ? 'line-through opacity-40' : ''
+                          }`}
+                        >
+                          {time}
+                          {isBooked && <span className='ml-2 text-xs'>(Booked)</span>}
+                        </Button>
+                      )
+                    })
+                  )}
                 </div>
               </ScrollArea>
             </div>
