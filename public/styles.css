@@ -232,6 +232,7 @@ body {
 .hero-inner {
   position: relative;
   padding: clamp(88px, 12vw, 200px) 0 clamp(96px, 12vw, 240px);
+  z-index: 2;
 }
 
 .hero-title {
