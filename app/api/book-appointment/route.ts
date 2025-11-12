@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
     // Google Calendar event details with professional description
     const event = {
-      summary: 'Growth Mapping Call - Infusino',
+      summary: 'Growth Mapping Call - Qortana',
       description: `Hi there,
 
 Looking forward to our Growth Mapping Call. This 30-minute session is designed to understand your business and identify opportunities for automation and growth.
@@ -58,9 +58,9 @@ Purpose: ${intentionMap[intention] || intention}
 
 ---
 Tommy Butcher
-Founder, Infusino
-Email: tommyboybutcher@gmail.com
-Phone: [Your phone number]
+Founder, Qortana
+Email: thomasbutcher@qortana.com
+Phone: (949) 395-1074
 
 We're here to help you scale smarter.`,
       start: {
@@ -75,8 +75,8 @@ We're here to help you scale smarter.`,
         { email: email }
       ],
       organizer: {
-        email: 'tommyboybutcher@gmail.com',
-        displayName: 'Tommy Butcher - Infusino'
+        email: 'thomasbutcher@qortana.com',
+        displayName: 'Tommy Butcher - Qortana'
       }
     }
 
@@ -144,7 +144,7 @@ export async function GET(request: NextRequest) {
     // Filter only sales calls from the website (Growth Mapping Call events)
     const salesCallEvents = events.filter((event: any) => 
       event.summary?.includes('Growth Mapping Call') || 
-      event.summary?.includes('Infusino')
+      event.summary?.includes('Qortana')
     )
 
     const bookedSlots = salesCallEvents

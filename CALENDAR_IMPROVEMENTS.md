@@ -9,7 +9,7 @@
 
 ### 2. Google Calendar Sync ✅
 - **Real-time availability checking**: When a date is selected, the system fetches all booked time slots from Google Calendar
-- **Smart filtering**: Only shows "Growth Mapping Call" or "Infusino" events as booked (filters out personal appointments)
+- **Smart filtering**: Only shows "Growth Mapping Call" or "Qortana" events as booked (filters out personal appointments)
 - **Visual indicators**: Booked time slots show:
   - Strikethrough styling
   - "(Booked)" label
@@ -48,16 +48,16 @@ Purpose: New Business Inquiry
 
 ---
 Tommy Butcher
-Founder, Infusino
-Email: tommyboybutcher@gmail.com
-Phone: [Your phone number]
+Founder, Qortana
+Email: thomasbutcher@qortana.com
+Phone: (949) 395-1074
 
 We're here to help you scale smarter.
 ```
 
 ### 4. Fixed "Unknown Sender" Issue ✅
 - Added organizer field with Tommy's email and display name
-- Events now show as coming from "Tommy Butcher - Infusino"
+- Events now show as coming from "Tommy Butcher - Qortana"
 - Looks more professional and less like spam
 
 ## Technical Details
@@ -95,20 +95,16 @@ We're here to help you scale smarter.
 
 ### Calendar Sync
 - Only shows website sales calls as booked (not personal appointments)
-- Filters events by summary containing "Growth Mapping Call" or "Infusino"
+- Filters events by summary containing "Growth Mapping Call" or "Qortana"
 - Updates in real-time when date is selected
 - Prevents double-booking
 
 ## Action Required
 
-**⚠️ Add Your Phone Number:**
-Please update line 63 in `/app/api/book-appointment/route.ts`:
-
-```typescript
-Phone: [Your phone number]
-```
-
-Replace `[Your phone number]` with your actual phone number (e.g., "(555) 123-4567")
+✅ **Complete!** All contact information has been added:
+- Email: thomasbutcher@qortana.com
+- Phone: (949) 395-1074
+- Company: Qortana (not Infusino)
 
 ## Testing Checklist
 
@@ -117,8 +113,9 @@ Replace `[Your phone number]` with your actual phone number (e.g., "(555) 123-45
 - [x] Only sales calls are filtered and shown as booked
 - [x] Booked slots show strikethrough and "(Booked)" label
 - [x] Professional email description is sent
-- [x] Email comes from "Tommy Butcher - Infusino" instead of "unknown sender"
-- [ ] Phone number needs to be added to event description
+- [x] Email comes from "Tommy Butcher - Qortana" instead of "unknown sender"
+- [x] Phone number and email added to event description
+- [x] All branding updated to "Qortana" (not Infusino)
 
 ## Notes
 

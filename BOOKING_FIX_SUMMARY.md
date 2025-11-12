@@ -55,7 +55,7 @@ After setting up the connector, try booking again. The new error message will te
 2. **API creates event**: Uses Replit connector to create Google Calendar event
 3. **Google sends email**: Automatically sends calendar invite to customer's email
 4. **Event details include**: 
-   - Summary: "Growth Mapping Call - Infusino"
+   - Summary: "Growth Mapping Call - Qortana"
    - Duration: 30 minutes
    - Customer email listed as attendee
    - Purpose/intention in description
