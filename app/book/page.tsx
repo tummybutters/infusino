@@ -36,12 +36,28 @@ export default function BookAppointment() {
       if (response.ok) {
         const data = await response.json()
         setBookedSlots(data.bookedSlots || [])
+      } else {
+        setBookedSlots([])
       }
     } catch (error) {
       console.error('Error fetching booked slots:', error)
+      setBookedSlots([])
     } finally {
       setLoadingSlots(false)
     }
+  }
+
+  const handleDateSelect = (selectedDate?: Date) => {
+    if (!selectedDate) {
+      setDate(undefined)
+      setBookedSlots([])
+      setSelectedTime(null)
+      return
+    }
+
+    const normalizedDate = new Date(selectedDate)
+    normalizedDate.setHours(0, 0, 0, 0)
+    setDate(normalizedDate)
   }
 
   // Check if a time slot is booked
@@ -157,7 +173,7 @@ export default function BookAppointment() {
               <Calendar
                 mode='single'
                 selected={date}
-                onSelect={setDate}
+                onSelect={handleDateSelect}
                 defaultMonth={date || new Date()}
                 disabled={isDateDisabled}
                 showOutsideDays={false}
@@ -169,35 +185,50 @@ export default function BookAppointment() {
                 }}
               />
             </div>
-            <div className='flex flex-col gap-4 border-t md:w-60 md:flex-none md:border-t-0 md:border-l'>
-              <ScrollArea className='h-full max-md:max-h-60'>
-                <div className='flex flex-col gap-2 p-4 md:p-6'>
-                  {loadingSlots && date ? (
-                    <div className='flex items-center justify-center py-8 text-sm text-slate-500'>
-                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                      Checking availability...
-                    </div>
-                  ) : (
-                    timeSlots.map(time => {
-                      const isBooked = isTimeSlotBooked(time)
-                      return (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? 'default' : 'outline'}
-                          onClick={() => !isBooked && setSelectedTime(time)}
-                          disabled={!date || isBooked}
-                          className={`w-full shadow-none transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md disabled:hover:scale-100 disabled:hover:shadow-none ${
-                            isBooked ? 'line-through opacity-40' : ''
-                          }`}
-                        >
-                          {time}
-                          {isBooked && <span className='ml-2 text-xs'>(Booked)</span>}
-                        </Button>
-                      )
-                    })
-                  )}
+            <div className='flex flex-col border-t md:w-64 md:flex-none md:border-t-0 md:border-l'>
+              <div className='px-4 pt-4 text-xs font-semibold uppercase tracking-wide text-slate-400'>
+                {date
+                  ? `Availability for ${date.toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      month: 'long',
+                      day: 'numeric'
+                    })}`
+                  : 'Select a date to view availability'}
+              </div>
+              {date ? (
+                <ScrollArea className='max-h-72 md:max-h-[520px]'>
+                  <div className='grid grid-cols-1 gap-2 p-4 sm:grid-cols-2'>
+                    {loadingSlots ? (
+                      <div className='col-span-full flex items-center justify-center py-8 text-sm text-slate-500'>
+                        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                        Checking availability...
+                      </div>
+                    ) : (
+                      timeSlots.map(time => {
+                        const isBooked = isTimeSlotBooked(time)
+                        return (
+                          <Button
+                            key={time}
+                            variant={selectedTime === time ? 'default' : 'outline'}
+                            onClick={() => !isBooked && setSelectedTime(time)}
+                            disabled={isBooked}
+                            className={`w-full shadow-none transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md disabled:hover:scale-100 disabled:hover:shadow-none ${
+                              isBooked ? 'line-through opacity-40' : ''
+                            }`}
+                          >
+                            {time}
+                            {isBooked && <span className='ml-2 text-xs'>(Booked)</span>}
+                          </Button>
+                        )
+                      })
+                    )}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <div className='px-6 py-12 text-sm text-slate-500'>
+                  Choose a date on the calendar to unlock available times.
                 </div>
-              </ScrollArea>
+              )}
             </div>
           </CardContent>
           <div className='px-6 py-4 border-t space-y-4'>
