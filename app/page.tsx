@@ -51,6 +51,31 @@ export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
 
   const testimonials = {
+    hardys: {
+      quote: "Qortana rebuilt our entire booking stack in days and started filling routes immediately.",
+      client: "Jordan Hardy",
+      role: "Founder, Hardy's Wash N Wax",
+      goal: "Stop losing high-ticket details when calls rolled to voicemail and keep techs fully booked without extra coordinators.",
+      implementation: [
+        "Rebuilt the Hardy's Wash N Wax website with embedded routing + deposit flows.",
+        "Launched a GPT-powered SMS concierge that answers every missed call in under a minute.",
+        "Nudged dispatch via Slack the moment a job was ready so the right van got scheduled." 
+      ],
+      stack: ["Next.js booking hub", "Google Calendar", "n8n orchestration", "AI SMS concierge", "Slack alerts"],
+      metrics: [
+        "120+ appointments now land on the calendar automatically every week",
+        "Response time to missed calls dropped to 45 seconds",
+        "18 hours of manual quoting freed up across the team"
+      ],
+      embedUrl: "https://www.hardyswashnwax.com/",
+      offer: "We built the first version for free to prove the ROI before we charged a single dollar.",
+      smsImage: "/attached_assets/ai-sms-assistant.png",
+      smsBullets: [
+        "Qualifies scope, vehicle count, and budget with GPT agents.",
+        "Escalates hot leads into Slack with clear \"Needs Reply\" tags.",
+        "Keeps CRM + dispatch calendars synced without human follow-up."
+      ]
+    },
     website: {
       quote: "Tommy and Qortana found automations we didn't know existed. Fifteen hours of admin work vanished every week.",
       client: "Sarah M.",
@@ -362,54 +387,7 @@ export default function Home() {
               <div className="logo-badge">Real Estate</div>
               <div className="logo-badge">Photography</div>
               <div className="logo-badge">E-commerce</div>
-            </motion.div>
-
-            <motion.div
-              className="testimonial-visuals"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="visual-card visual-card-embed">
-                <div className="visual-label">Featured client build</div>
-                <h3>Hardy's Wash N Wax — SoCal's largest mobile detailer</h3>
-                <p>
-                  We rebuilt their full booking experience and calendar routing in under
-                  two weeks <strong>for free</strong> to prove how fast our stack ships revenue outcomes.
-                  Their team now runs 120+ appointments a week without touching Zapier spaghetti.
-                </p>
-                <div className="visual-iframe" aria-label="Hardy's Wash N Wax website preview">
-                  <iframe
-                    src="https://www.hardyswashnwax.com/"
-                    title="Hardy's Wash N Wax website preview"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
-                    referrerPolicy="no-referrer"
-                  ></iframe>
-                </div>
-                <p className="visual-meta">Cost to client: $0 — we only kept the upside once it printed ROI.</p>
-              </div>
-
-              <div className="visual-card visual-card-sms">
-                <div className="visual-label">AI SMS concierge</div>
-                <h3>24/7 lead triage &amp; instant routing</h3>
-                <p>
-                  The same playbook powers Hardy's missed-call follow-up. Our handler qualifies
-                  leads, captures budgets, and pings the right sales rep the second someone is ready to book.
-                </p>
-                <img
-                  src="/attached_assets/ai-sms-assistant.png"
-                  alt="AI SMS assistant showing queued conversations and ready-to-book alerts"
-                  className="visual-screen"
-                  loading="lazy"
-                />
-                <ul className="visual-list">
-                  <li>Auto replies within 45 seconds of every missed call or text.</li>
-                  <li>Understands project scope, timelines, and budget with GPT agents.</li>
-                  <li>Flags "Needs Reply" inside Slack + SMS when humans should step in.</li>
-                </ul>
-              </div>
+              <div className="logo-badge">Field Services</div>
             </motion.div>
 
             <motion.div 
@@ -418,18 +396,19 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              onClick={() => setActiveModal('website')}
+              onClick={() => setActiveModal('hardys')}
               whileHover={{ scale: 1.01 }}
               style={{ cursor: 'pointer' }}
             >
               <blockquote className="quote">
-                <p>"{testimonials.website.quote}"</p>
+                <p>"{testimonials.hardys.quote}"</p>
+                <p className="quote-summary">We rebuilt Hardy's booking and AI concierge stack free of charge to prove the upside before taking a retainer.</p>
               </blockquote>
               <div className="quote-author">
-                <img className="avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop" alt="Website Development Agency" loading="lazy" />
+                <img className="avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300&auto=format&fit=crop" alt="Hardy's Wash N Wax mobile detailing team" loading="lazy" />
                 <div className="author-meta">
-                  <div className="author-name">{testimonials.website.client}</div>
-                  <div className="author-title">{testimonials.website.role}</div>
+                  <div className="author-name">{testimonials.hardys.client}</div>
+                  <div className="author-title">{testimonials.hardys.role}</div>
                 </div>
               </div>
               <div className="click-hint">Click to see the solution →</div>
@@ -641,6 +620,45 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
+                    {(activeTestimonial.embedUrl || activeTestimonial.smsImage) && (
+                      <div className="modal-media-grid">
+                        {activeTestimonial.embedUrl && (
+                          <div className="modal-section">
+                            <h4 className="modal-section-title">Live build preview</h4>
+                            {activeTestimonial.offer && (
+                              <p className="modal-offer">{activeTestimonial.offer}</p>
+                            )}
+                            <div className="modal-iframe" aria-label="Client site preview">
+                              <iframe
+                                src={activeTestimonial.embedUrl}
+                                title={activeTestimonial.client + ' website'}
+                                loading="lazy"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
+                                referrerPolicy="no-referrer"
+                              ></iframe>
+                            </div>
+                          </div>
+                        )}
+                        {activeTestimonial.smsImage && (
+                          <div className="modal-section">
+                            <h4 className="modal-section-title">AI SMS concierge in action</h4>
+                            <img
+                              src={activeTestimonial.smsImage}
+                              alt={`AI SMS assistant for ${activeTestimonial.client}`}
+                              className="modal-screenshot"
+                              loading="lazy"
+                            />
+                            {activeTestimonial.smsBullets && (
+                              <ul className="modal-bullet-list">
+                                {activeTestimonial.smsBullets.map((bullet: string) => (
+                                  <li key={bullet}>{bullet}</li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
                 
