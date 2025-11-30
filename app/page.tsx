@@ -591,75 +591,85 @@ export default function Home() {
                 
                 <h3 className="modal-title">The Solution</h3>
                 {activeTestimonial && (
-                  <div className="modal-sections">
-                    <div className="modal-section">
-                      <h4 className="modal-section-title">Goal</h4>
-                      <p>{activeTestimonial.goal}</p>
-                    </div>
-                    <div className="modal-section">
-                      <h4 className="modal-section-title">What we implemented</h4>
-                      <ul className="modal-list">
-                        {activeTestimonial.implementation.map(item => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="modal-section">
-                      <h4 className="modal-section-title">Stack highlights</h4>
-                      <div className="modal-chip-row">
-                        {activeTestimonial.stack.map(tool => (
-                          <span className="modal-chip" key={tool}>{tool}</span>
-                        ))}
+                  <>
+                    {activeTestimonial.embedUrl && (
+                      <div className="modal-embed-block">
+                        <div className="modal-embed-header">
+                          <h4 className="modal-section-title">Live build preview</h4>
+                          <span className="modal-free-pill">Built free</span>
+                        </div>
+                        {activeTestimonial.offer && (
+                          <p className="modal-offer">{activeTestimonial.offer}</p>
+                        )}
+                        <div className="modal-iframe" aria-label="Client site preview">
+                          <iframe
+                            src={activeTestimonial.embedUrl}
+                            title={activeTestimonial.client + ' website'}
+                            loading="lazy"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
+                            referrerPolicy="no-referrer"
+                          ></iframe>
+                          <a
+                            href={activeTestimonial.embedUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="modal-iframe-overlay"
+                            aria-label={`Open ${activeTestimonial.client} website in new tab`}
+                          ></a>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="modal-sections">
+                      <div className="modal-section">
+                        <h4 className="modal-section-title">Goal</h4>
+                        <p>{activeTestimonial.goal}</p>
+                      </div>
+                      <div className="modal-section">
+                        <h4 className="modal-section-title">What we implemented</h4>
+                        <ul className="modal-list">
+                          {activeTestimonial.implementation.map(item => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="modal-section">
+                        <h4 className="modal-section-title">Stack highlights</h4>
+                        <div className="modal-chip-row">
+                          {activeTestimonial.stack.map(tool => (
+                            <span className="modal-chip" key={tool}>{tool}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="modal-section">
+                        <h4 className="modal-section-title">Results (first 60 days)</h4>
+                        <ul className="modal-list">
+                          {activeTestimonial.metrics.map(metric => (
+                            <li key={metric}>{metric}</li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                    <div className="modal-section">
-                      <h4 className="modal-section-title">Results (first 60 days)</h4>
-                      <ul className="modal-list">
-                        {activeTestimonial.metrics.map(metric => (
-                          <li key={metric}>{metric}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    {(activeTestimonial.embedUrl || activeTestimonial.smsImage) && (
-                      <div className="modal-media-grid">
-                        {activeTestimonial.embedUrl && (
-                          <div className="modal-section">
-                            <h4 className="modal-section-title">Live build preview</h4>
-                            {activeTestimonial.offer && (
-                              <p className="modal-offer">{activeTestimonial.offer}</p>
-                            )}
-                            <div className="modal-iframe" aria-label="Client site preview">
-                              <iframe
-                                src={activeTestimonial.embedUrl}
-                                title={activeTestimonial.client + ' website'}
-                                loading="lazy"
-                                sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
-                                referrerPolicy="no-referrer"
-                              ></iframe>
-                            </div>
-                          </div>
-                        )}
-                        {activeTestimonial.smsImage && (
-                          <div className="modal-section">
-                            <h4 className="modal-section-title">AI SMS concierge in action</h4>
-                            <img
-                              src={activeTestimonial.smsImage}
-                              alt={`AI SMS assistant for ${activeTestimonial.client}`}
-                              className="modal-screenshot"
-                              loading="lazy"
-                            />
-                            {activeTestimonial.smsBullets && (
-                              <ul className="modal-bullet-list">
-                                {activeTestimonial.smsBullets.map((bullet: string) => (
-                                  <li key={bullet}>{bullet}</li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
+
+                    {activeTestimonial.smsImage && (
+                      <div className="modal-sms-block">
+                        <h4 className="modal-section-title">AI SMS concierge in action</h4>
+                        <img
+                          src={activeTestimonial.smsImage}
+                          alt={`AI SMS assistant for ${activeTestimonial.client}`}
+                          className="modal-screenshot"
+                          loading="lazy"
+                        />
+                        {activeTestimonial.smsBullets && (
+                          <ul className="modal-bullet-list">
+                            {activeTestimonial.smsBullets.map((bullet: string) => (
+                              <li key={bullet}>{bullet}</li>
+                            ))}
+                          </ul>
                         )}
                       </div>
                     )}
-                  </div>
+                  </>
                 )}
                 
                 <div className="modal-client-info">

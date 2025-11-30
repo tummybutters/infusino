@@ -553,40 +553,69 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.modal-media-grid {
-  display: grid;
-  gap: 24px;
+.modal-embed-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 
-@media (min-width: 900px) {
-  .modal-media-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+.modal-embed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-free-pill {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #0f172a;
+  color: #fff;
 }
 
 .modal-iframe {
   position: relative;
   width: 100%;
-  padding-top: 62%;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 16px 40px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 24px 60px rgba(0,0,0,0.18);
   background: #0f172a;
+  aspect-ratio: 16 / 9;
 }
 
 .modal-iframe iframe {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   border: none;
 }
 
+.modal-iframe-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  display: block;
+}
+
+.modal-iframe-overlay:hover {
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.55);
+}
+
 .modal-offer {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 14px;
   color: #6b7280;
+}
+
+.modal-sms-block {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .modal-screenshot {
@@ -597,7 +626,7 @@ body {
 }
 
 .modal-bullet-list {
-  margin: 12px 0 0;
+  margin: 0;
   padding-left: 18px;
   display: flex;
   flex-direction: column;
