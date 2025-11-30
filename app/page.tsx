@@ -364,6 +364,54 @@ export default function Home() {
               <div className="logo-badge">E-commerce</div>
             </motion.div>
 
+            <motion.div
+              className="testimonial-visuals"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="visual-card visual-card-embed">
+                <div className="visual-label">Featured client build</div>
+                <h3>Hardy's Wash N Wax — SoCal's largest mobile detailer</h3>
+                <p>
+                  We rebuilt their full booking experience and calendar routing in under
+                  two weeks <strong>for free</strong> to prove how fast our stack ships revenue outcomes.
+                  Their team now runs 120+ appointments a week without touching Zapier spaghetti.
+                </p>
+                <div className="visual-iframe" aria-label="Hardy's Wash N Wax website preview">
+                  <iframe
+                    src="https://www.hardyswashnwax.com/"
+                    title="Hardy's Wash N Wax website preview"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
+                    referrerPolicy="no-referrer"
+                  ></iframe>
+                </div>
+                <p className="visual-meta">Cost to client: $0 — we only kept the upside once it printed ROI.</p>
+              </div>
+
+              <div className="visual-card visual-card-sms">
+                <div className="visual-label">AI SMS concierge</div>
+                <h3>24/7 lead triage &amp; instant routing</h3>
+                <p>
+                  The same playbook powers Hardy's missed-call follow-up. Our handler qualifies
+                  leads, captures budgets, and pings the right sales rep the second someone is ready to book.
+                </p>
+                <img
+                  src="/attached_assets/ai-sms-assistant.png"
+                  alt="AI SMS assistant showing queued conversations and ready-to-book alerts"
+                  className="visual-screen"
+                  loading="lazy"
+                />
+                <ul className="visual-list">
+                  <li>Auto replies within 45 seconds of every missed call or text.</li>
+                  <li>Understands project scope, timelines, and budget with GPT agents.</li>
+                  <li>Flags "Needs Reply" inside Slack + SMS when humans should step in.</li>
+                </ul>
+              </div>
+            </motion.div>
+
             <motion.div 
               className="testimonial-frame clickable"
               initial={{ opacity: 0, y: 30 }}
