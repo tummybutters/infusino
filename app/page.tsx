@@ -609,14 +609,13 @@ export default function Home() {
                             sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
                             referrerPolicy="no-referrer"
                           ></iframe>
-                          <a
-                            href={activeTestimonial.embedUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="modal-iframe-overlay"
-                            aria-label={`Open ${activeTestimonial.client} website in new tab`}
-                          ></a>
                         </div>
+                        <p className="modal-iframe-hint">
+                          Scroll around the preview or{' '}
+                          <a href={activeTestimonial.embedUrl} target="_blank" rel="noopener noreferrer">
+                            open the live site ↗
+                          </a>
+                        </p>
                       </div>
                     )}
 

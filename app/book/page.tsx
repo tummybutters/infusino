@@ -152,8 +152,8 @@ export default function BookAppointment() {
           <CardHeader className='flex h-max justify-center border-b !p-4'>
             <CardTitle>Book your appointment</CardTitle>
           </CardHeader>
-          <CardContent className='relative p-0 md:pr-48'>
-            <div className='p-6'>
+          <CardContent className='flex flex-col p-0 md:flex-row'>
+            <div className='flex-1 p-6'>
               <Calendar
                 mode='single'
                 selected={date}
@@ -169,9 +169,9 @@ export default function BookAppointment() {
                 }}
               />
             </div>
-            <div className='inset-y-0 right-0 flex w-full flex-col gap-4 border-t max-md:h-60 md:absolute md:w-48 md:border-t-0 md:border-l'>
-              <ScrollArea className='h-full'>
-                <div className='flex flex-col gap-2 p-6'>
+            <div className='flex flex-col gap-4 border-t md:w-60 md:flex-none md:border-t-0 md:border-l'>
+              <ScrollArea className='h-full max-md:max-h-60'>
+                <div className='flex flex-col gap-2 p-4 md:p-6'>
                   {loadingSlots && date ? (
                     <div className='flex items-center justify-center py-8 text-sm text-slate-500'>
                       <Loader2 className='mr-2 h-4 w-4 animate-spin' />

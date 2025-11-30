@@ -594,21 +594,26 @@ body {
   border: none;
 }
 
-.modal-iframe-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  display: block;
-}
-
-.modal-iframe-overlay:hover {
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.55);
-}
-
 .modal-offer {
   margin: 0;
   font-size: 14px;
   color: #6b7280;
+}
+
+.modal-iframe-hint {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.modal-iframe-hint a {
+  color: #111827;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.modal-iframe-hint a:hover {
+  text-decoration: underline;
 }
 
 .modal-sms-block {
