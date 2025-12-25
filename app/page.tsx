@@ -4,6 +4,20 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
+type Testimonial = {
+  quote: string
+  client: string
+  role: string
+  goal: string
+  implementation: string[]
+  stack: string[]
+  metrics: string[]
+  embedUrl?: string
+  offer?: string
+  smsImage?: string
+  smsBullets?: string[]
+}
+
 // Animation variants for scroll-triggered elements
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -50,7 +64,7 @@ export default function Home() {
   const [showMoreReviews, setShowMoreReviews] = useState(false)
   const [activeModal, setActiveModal] = useState<string | null>(null)
 
-  const testimonials = {
+  const testimonials: Record<string, Testimonial> = {
     hardys: {
       quote: "Qortana rebuilt our entire booking stack in days and started filling routes immediately.",
       client: "Jordan Hardy",

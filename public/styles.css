@@ -17,6 +17,7 @@ body {
   color: var(--text);
   background: var(--surface);
 }
+html, body { overflow-x: clip; }
 
 .container {
   width: 100%;
@@ -118,6 +119,20 @@ body {
 
 @media (min-width: 900px) {
   .primary-nav { display: flex; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 20px; }
+
+  .nav {
+    gap: 12px;
+    height: 64px;
+  }
+
+  .brand-text { font-size: 18px; }
+
+  .button { padding: 10px 14px; }
+  .circle-arrow { width: 26px; height: 26px; }
 }
 
 .button {
@@ -543,7 +558,7 @@ body {
   text-align: left;
   max-width: min(1400px, 96vw);
 }
-.logo-row { display: flex; gap: 12px; margin: 12px 0 28px; justify-content: flex-start; }
+.logo-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 28px; justify-content: flex-start; }
 .logo-badge {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.10);
