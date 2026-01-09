@@ -427,13 +427,13 @@ html, body { overflow-x: clip; }
   z-index: 0;
 }
 
-/* Overlay gradient that sits above the background */
+/* Overlay gradient that sits above the background - darker by default */
 .service-box::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
-  transition: background 0.5s ease-out;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.85));
+  transition: background 0.4s ease-out;
   z-index: 1;
 }
 
@@ -451,7 +451,7 @@ html, body { overflow-x: clip; }
 }
 
 .service-box:hover::after {
-  background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+  background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
 }
 
 /* Corner-specific border radius for touching quadrants */
@@ -518,10 +518,23 @@ html, body { overflow-x: clip; }
   color: #ffffff;
 }
 
-.chip-row { 
-  display: flex; 
-  flex-wrap: wrap; 
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 8px;
+  /* Hidden by default - revealed on hover */
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease, margin-bottom 0.4s ease;
+  margin-bottom: 0;
+}
+
+/* Reveal chip rows on service box hover */
+.service-box:hover .chip-row {
+  opacity: 1;
+  max-height: 100px;
   margin-bottom: 8px;
 }
 .chip {
