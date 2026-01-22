@@ -26,17 +26,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <head>
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-L6H40VWTW2"
+          strategy="beforeInteractive"
         />
-        <Script id="gtag-init" strategy="afterInteractive">
+        <Script id="gtag-init" strategy="beforeInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-L6H40VWTW2', { send_page_view: false });`}
         </Script>
+      </head>
+      <body className={inter.className} suppressHydrationWarning>
         <GoogleAnalytics />
         {children}
       </body>
