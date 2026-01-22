@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -36,11 +35,10 @@ export default function RootLayout({
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-L6H40VWTW2', { send_page_view: false });`}
+gtag('config', 'G-L6H40VWTW2');`}
         </Script>
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <GoogleAnalytics />
         {children}
       </body>
     </html>
