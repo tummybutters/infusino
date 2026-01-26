@@ -68,11 +68,32 @@ export default function Home() {
   useEffect(() => {
     const video = heroVideoRef.current
     if (!video) return
-    video.muted = true
-    video.playsInline = true
-    const playPromise = video.play()
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {})
+    const tryPlay = () => {
+      video.muted = true
+      video.playsInline = true
+      video.setAttribute('muted', '')
+      video.setAttribute('playsinline', '')
+      video.setAttribute('webkit-playsinline', '')
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {})
+      }
+    }
+
+    const handleCanPlay = () => tryPlay()
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        tryPlay()
+      }
+    }
+
+    tryPlay()
+    video.addEventListener('canplay', handleCanPlay)
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay)
+      document.removeEventListener('visibilitychange', handleVisibility)
     }
   }, [])
 

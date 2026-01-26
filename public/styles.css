@@ -149,7 +149,7 @@ html, body { overflow-x: clip; }
 
   .primary-nav a { font-size: 14px; }
 
-  .cta-top { display: none; }
+  .cta-top { display: none !important; }
 }
 
 @media (max-width: 640px) {
