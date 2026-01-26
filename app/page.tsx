@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Testimonial = {
   quote: string
@@ -63,6 +63,18 @@ const reviewCard = {
 export default function Home() {
   const [showMoreReviews, setShowMoreReviews] = useState(false)
   const [activeModal, setActiveModal] = useState<string | null>(null)
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null)
+
+  useEffect(() => {
+    const video = heroVideoRef.current
+    if (!video) return
+    video.muted = true
+    video.playsInline = true
+    const playPromise = video.play()
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {})
+    }
+  }, [])
 
   const testimonials: Record<string, Testimonial> = {
     hardys: {
@@ -191,10 +203,12 @@ export default function Home() {
         <section className="hero" id="home">
           <div className="hero-bg" aria-hidden="true">
             <video 
+              ref={heroVideoRef}
               autoPlay 
               loop 
               muted 
               playsInline
+              preload="auto"
               className="hero-video"
             >
               <source src="/hero-background.mp4" type="video/mp4" />
