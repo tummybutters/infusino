@@ -168,7 +168,7 @@ export default function Home() {
       <header className="site-header">
         <div className="container nav">
           <Link href="/" className="brand" aria-label="Qortana home">
-            <span className="brand-mark" aria-hidden="true"></span>
+            <img className="brand-logo" src="/qortana-logo.png" alt="Qortana logo" />
             <span className="brand-text">Qortana</span>
           </Link>
           <nav className="primary-nav" aria-label="Primary">
@@ -703,7 +703,7 @@ export default function Home() {
         <div className="container footer-content">
           <div className="footer-brand">
             <Link href="/" className="brand" aria-label="Qortana home">
-              <span className="brand-mark" aria-hidden="true"></span>
+              <img className="brand-logo" src="/qortana-logo.png" alt="Qortana logo" />
               <span className="brand-text">Qortana</span>
             </Link>
             <p className="footer-tagline">The definitive AI growth partner</p>
