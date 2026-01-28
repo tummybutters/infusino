@@ -21,8 +21,8 @@ type Testimonial = {
 // Animation variants for scroll-triggered elements
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.8, ease: 'easeOut' as any }
   }
@@ -40,8 +40,8 @@ const staggerContainer = {
 
 const serviceBox = {
   hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' as any }
   }
@@ -76,7 +76,7 @@ export default function Home() {
       video.setAttribute('webkit-playsinline', '')
       const playPromise = video.play()
       if (playPromise !== undefined) {
-        playPromise.catch(() => {})
+        playPromise.catch(() => { })
       }
     }
 
@@ -106,7 +106,7 @@ export default function Home() {
       implementation: [
         "Rebuilt the Hardy's Wash N Wax website with embedded routing + deposit flows.",
         "Launched a GPT-powered SMS concierge that answers every missed call in under a minute.",
-        "Nudged dispatch via Slack the moment a job was ready so the right van got scheduled." 
+        "Nudged dispatch via Slack the moment a job was ready so the right van got scheduled."
       ],
       stack: ["Next.js booking hub", "Google Calendar", "n8n orchestration", "AI SMS concierge", "Slack alerts"],
       metrics: [
@@ -208,7 +208,7 @@ export default function Home() {
             <a href="#reviews" data-text="Case studies">Case studies</a>
             <a href="#about" data-text="About">About</a>
           </nav>
-          <Link className="button button-dark cta-top" href="/book">
+          <a className="button button-dark cta-top" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
             <span>Let's talk</span>
             <span className="circle-arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -216,18 +216,18 @@ export default function Home() {
                 <path d="M8 7h9v9"></path>
               </svg>
             </span>
-          </Link>
+          </a>
         </div>
       </header>
 
       <main>
         <section className="hero" id="home">
           <div className="hero-bg" aria-hidden="true">
-            <video 
+            <video
               ref={heroVideoRef}
-              autoPlay 
-              loop 
-              muted 
+              autoPlay
+              loop
+              muted
               playsInline
               preload="auto"
               className="hero-video"
@@ -236,7 +236,7 @@ export default function Home() {
             </video>
           </div>
           <div className="container hero-inner">
-            <motion.h1 
+            <motion.h1
               className="hero-title"
               initial="hidden"
               whileInView="visible"
@@ -251,7 +251,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Link className="button button-light cta-hero" href="/book">
+              <a className="button button-light cta-hero" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
                 <span>Let's talk</span>
                 <span className="circle-arrow" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -259,7 +259,7 @@ export default function Home() {
                     <path d="M8 7h9v9"></path>
                   </svg>
                 </span>
-              </Link>
+              </a>
             </motion.div>
           </div>
         </section>
@@ -267,7 +267,7 @@ export default function Home() {
         <section className="about" id="about">
           <div className="container about-inner">
             <div className="about-copy">
-              <motion.div 
+              <motion.div
                 className="pill"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -277,7 +277,7 @@ export default function Home() {
                 <span className="pill-badge">1</span>
                 <span>Introducing Qortana</span>
               </motion.div>
-              <motion.h2 
+              <motion.h2
                 className="about-title"
                 initial="hidden"
                 whileInView="visible"
@@ -286,7 +286,7 @@ export default function Home() {
               >
                 Tens of millions of dollars generated (& more saved).
               </motion.h2>
-              <motion.p 
+              <motion.p
                 className="about-text"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -295,7 +295,7 @@ export default function Home() {
               >
                 Our team has generated millions across both SMB & enterprise. We use a proprietary, AI‑driven consulting stack and a framework that dives deep into the heart of your business to fix real, practical problems—not just theoretical ones that look good on paper, but actual ways to drive revenue & grow.
               </motion.p>
-              <Link className="button button-dark cta-about" href="/book">
+              <a className="button button-dark cta-about" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
                 <span>Let's talk</span>
                 <span className="circle-arrow" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -303,9 +303,9 @@ export default function Home() {
                     <path d="M8 7h9v9"></path>
                   </svg>
                 </span>
-              </Link>
+              </a>
             </div>
-            <motion.div 
+            <motion.div
               className="about-media"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -321,7 +321,7 @@ export default function Home() {
 
         <section className="services" id="services">
           <div className="container services-inner">
-            <motion.div 
+            <motion.div
               className="pill"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -331,7 +331,7 @@ export default function Home() {
               <span className="pill-badge">4</span>
               <span>Our Services</span>
             </motion.div>
-            <motion.h2 
+            <motion.h2
               className="services-title"
               initial="hidden"
               whileInView="visible"
@@ -341,7 +341,7 @@ export default function Home() {
               What we specialize in.
             </motion.h2>
 
-            <motion.div 
+            <motion.div
               className="services-grid"
               initial="hidden"
               whileInView="visible"
@@ -405,7 +405,7 @@ export default function Home() {
 
         <section className="testimonials" id="reviews">
           <div className="container testimonials-inner">
-            <motion.div 
+            <motion.div
               className="pill"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -415,7 +415,7 @@ export default function Home() {
               <span className="pill-badge">4</span>
               <span>Client reviews</span>
             </motion.div>
-            <motion.h2 
+            <motion.h2
               className="testimonials-title"
               initial="hidden"
               whileInView="visible"
@@ -425,7 +425,7 @@ export default function Home() {
               Some words from happy clients.
             </motion.h2>
 
-            <motion.div 
+            <motion.div
               className="logo-row"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -439,7 +439,7 @@ export default function Home() {
               <div className="logo-badge">Field Services</div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="testimonial-frame clickable"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -464,8 +464,8 @@ export default function Home() {
             </motion.div>
 
             {!showMoreReviews && (
-              <motion.button 
-                className="see-more-btn" 
+              <motion.button
+                className="see-more-btn"
                 onClick={() => setShowMoreReviews(true)}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -486,14 +486,14 @@ export default function Home() {
 
             <AnimatePresence>
               {showMoreReviews && (
-                <motion.div 
+                <motion.div
                   className="additional-reviews show"
                   initial={{ opacity: 0, maxHeight: 0, marginTop: 0 }}
                   animate={{ opacity: 1, maxHeight: 2000, marginTop: 32 }}
                   exit={{ opacity: 0, maxHeight: 0, marginTop: 0 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="review-card clickable"
                     custom={0}
                     initial="hidden"
@@ -514,7 +514,7 @@ export default function Home() {
                     <div className="click-hint">Click to see the solution →</div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     className="review-card clickable"
                     custom={1}
                     initial="hidden"
@@ -535,7 +535,7 @@ export default function Home() {
                     <div className="click-hint">Click to see the solution →</div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     className="review-card clickable"
                     custom={2}
                     initial="hidden"
@@ -562,8 +562,8 @@ export default function Home() {
         </section>
 
         <section className="final-cta" aria-labelledby="final-cta-heading">
-          <motion.div 
-            className="final-cta-art" 
+          <motion.div
+            className="final-cta-art"
             aria-hidden="true"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -571,7 +571,7 @@ export default function Home() {
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
           <div className="container final-cta-inner">
-            <motion.p 
+            <motion.p
               className="eyebrow"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -580,8 +580,8 @@ export default function Home() {
             >
               Work with us
             </motion.p>
-            <motion.h2 
-              id="final-cta-heading" 
+            <motion.h2
+              id="final-cta-heading"
               className="final-cta-title"
               initial="hidden"
               whileInView="visible"
@@ -596,15 +596,15 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Link className="button button-on-dark" href="/book">
-              <span>Let's talk</span>
-              <span className="circle-arrow circle-arrow-on-dark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17l10-10"></path>
-                  <path d="M8 7h9v9"></path>
-                </svg>
-              </span>
-              </Link>
+              <a className="button button-on-dark" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
+                <span>Let's talk</span>
+                <span className="circle-arrow circle-arrow-on-dark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17l10-10"></path>
+                    <path d="M8 7h9v9"></path>
+                  </svg>
+                </span>
+              </a>
             </motion.div>
           </div>
         </section>
@@ -612,14 +612,14 @@ export default function Home() {
         {/* Modal for testimonial details */}
         <AnimatePresence>
           {activeModal && (
-            <motion.div 
+            <motion.div
               className="modal-overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveModal(null)}
             >
-              <motion.div 
+              <motion.div
                 className="modal-content"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -627,8 +627,8 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <button 
-                  className="modal-close" 
+                <button
+                  className="modal-close"
                   onClick={() => setActiveModal(null)}
                   aria-label="Close modal"
                 >
@@ -637,7 +637,7 @@ export default function Home() {
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </button>
-                
+
                 <h3 className="modal-title">The Solution</h3>
                 {activeTestimonial && (
                   <>
@@ -719,7 +719,7 @@ export default function Home() {
                     )}
                   </>
                 )}
-                
+
                 <div className="modal-client-info">
                   <div className="modal-client-name">
                     {activeTestimonial?.client}
@@ -743,22 +743,22 @@ export default function Home() {
             </Link>
             <p className="footer-tagline">The definitive AI growth partner</p>
           </div>
-          
+
           <nav className="footer-nav">
             <div className="footer-nav-group">
               <h3 className="footer-nav-title">Company</h3>
               <a href="#about">About</a>
               <a href="#reviews">Case studies</a>
-              <Link href="/book">Contact</Link>
+              <a href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">Contact</a>
             </div>
-            
+
             <div className="footer-nav-group">
               <h3 className="footer-nav-title">Legal</h3>
               <a href="/sms-privacy.html">SMS Privacy</a>
               <a href="/sms-terms.html">SMS Terms</a>
             </div>
           </nav>
-          
+
           <div className="footer-bottom">
             <p className="footer-copyright">© <span id="year">{new Date().getFullYear()}</span> Qortana. All rights reserved.</p>
           </div>

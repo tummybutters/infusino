@@ -148,7 +148,7 @@ html, body { overflow-x: clip; }
     width: 100%;
   }
 
-  .primary-nav a { font-size: 14px; padding: 4px 2px; }
+  .primary-nav a { font-size: 14px; padding: 6px 10px; }
 
   .cta-top { display: none !important; }
 }
@@ -371,7 +371,7 @@ html, body { overflow-x: clip; }
 }
 
 .about-title {
-  margin: 18px 0 18px;
+  margin: 18px 0 24px;
   font-size: clamp(36px, 5.8vw, 78px);
   line-height: 1.02;
   letter-spacing: -0.022em;
@@ -385,7 +385,7 @@ html, body { overflow-x: clip; }
   max-width: 60ch;
 }
 
-.cta-about { margin-top: 22px; display: inline-flex; justify-self: start; width: max-content; }
+.cta-about { margin-top: 32px; display: inline-flex; justify-self: start; width: max-content; }
 
 .about-media { display: flex; justify-content: center; }
 .media-card {
@@ -420,7 +420,7 @@ html, body { overflow-x: clip; }
 }
 
 .services-title {
-  margin: 18px 0 28px;
+  margin: 18px 0 32px;
   font-size: clamp(32px, 5.6vw, 72px);
   line-height: 1.04;
   letter-spacing: -0.022em;
@@ -594,7 +594,7 @@ html, body { overflow-x: clip; }
   padding-inline: clamp(24px, 6vw, 96px);
 }
 .testimonials-title {
-  margin: 18px 0 24px;
+  margin: 18px 0 32px;
   font-size: clamp(36px, 5.8vw, 80px);
   line-height: 1.05;
   letter-spacing: -0.022em;
