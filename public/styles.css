@@ -931,19 +931,19 @@ body {
 
 /* Portfolio Images */
 .portfolio-1::before {
-  background-image: url('/attached_assets/stock_images/business_person_work_fa876c2b.jpg');
+  background-image: url('/attached_assets/conviction-index.png');
 }
 
 .portfolio-2::before {
-  background-image: url('/attached_assets/stock_images/project_management_t_6fadeba2.jpg');
+  background-image: url('/attached_assets/obsidian-auto.png');
 }
 
 .portfolio-3::before {
-  background-image: url('/attached_assets/stock_images/professional_hiring__68938838.jpg');
+  background-image: url('/attached_assets/hardys-wash.png');
 }
 
 .portfolio-4::before {
-  background-image: url('/attached_assets/stock_images/sales_team_working_w_35975b51.jpg');
+  background-image: url('/attached_assets/malohn-capital.png');
 }
 
 .review-card {

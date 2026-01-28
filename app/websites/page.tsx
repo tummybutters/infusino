@@ -43,7 +43,6 @@ export default function WebsitesPage() {
                     </Link>
                     <nav className="primary-nav" aria-label="Primary">
                         <Link href="/" data-text="Home">Home</Link>
-                        <Link href="/websites" className="active" data-text="Websites">Websites</Link>
                         <Link href="/#reviews" data-text="Case studies">Case studies</Link>
                     </nav>
                     <a className="button button-dark cta-top" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
@@ -113,43 +112,51 @@ export default function WebsitesPage() {
                             variants={staggerContainer}
                         >
                             <motion.div className="service-box portfolio-box portfolio-1" variants={portfolioItem}>
-                                <div className="service-overlay">
-                                    <h3 className="service-heading">Summit HVAC & Air</h3>
-                                    <div className="chip-row">
-                                        <span className="chip chip-overlay">Lead Gen Funnel</span>
-                                        <span className="chip chip-overlay">Next.js</span>
+                                <a href="https://www.theconvictionindex.com/" target="_blank" rel="noopener noreferrer" className="service-link" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+                                    <div className="service-overlay">
+                                        <h3 className="service-heading">The Conviction Index</h3>
+                                        <div className="chip-row">
+                                            <span className="chip chip-overlay">Data Intelligence</span>
+                                            <span className="chip chip-overlay">Finance</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </motion.div>
 
                             <motion.div className="service-box portfolio-box portfolio-2" variants={portfolioItem}>
-                                <div className="service-overlay">
-                                    <h3 className="service-heading">Apex Real Estate</h3>
-                                    <div className="chip-row">
-                                        <span className="chip chip-overlay">MLS Integration</span>
-                                        <span className="chip chip-overlay">Interactive Map</span>
+                                <a href="https://www.obsidianautoworksoc.com/" target="_blank" rel="noopener noreferrer" className="service-link" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+                                    <div className="service-overlay">
+                                        <h3 className="service-heading">Obsidian Auto Works</h3>
+                                        <div className="chip-row">
+                                            <span className="chip chip-overlay">Auto Detailing</span>
+                                            <span className="chip chip-overlay">Booking Flow</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </motion.div>
 
                             <motion.div className="service-box portfolio-box portfolio-3" variants={portfolioItem}>
-                                <div className="service-overlay">
-                                    <h3 className="service-heading">Luxe Detailing</h3>
-                                    <div className="chip-row">
-                                        <span className="chip chip-overlay">Booking Engine</span>
-                                        <span className="chip chip-overlay">Mobile First</span>
+                                <a href="https://www.hardyswashnwax.com/" target="_blank" rel="noopener noreferrer" className="service-link" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+                                    <div className="service-overlay">
+                                        <h3 className="service-heading">Hardy's Wash N Wax</h3>
+                                        <div className="chip-row">
+                                            <span className="chip chip-overlay">Mobile Detailing</span>
+                                            <span className="chip chip-overlay">Lead Capture</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </motion.div>
 
                             <motion.div className="service-box portfolio-box portfolio-4" variants={portfolioItem}>
-                                <div className="service-overlay">
-                                    <h3 className="service-heading">Vanguard Legal</h3>
-                                    <div className="chip-row">
-                                        <span className="chip chip-overlay">Client Portal</span>
-                                        <span className="chip chip-overlay">Secure Document Intake</span>
+                                <a href="https://www.malohncapital.com/" target="_blank" rel="noopener noreferrer" className="service-link" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+                                    <div className="service-overlay">
+                                        <h3 className="service-heading">Malohn Capital</h3>
+                                        <div className="chip-row">
+                                            <span className="chip chip-overlay">Private Equity</span>
+                                            <span className="chip chip-overlay">Investment Firm</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </motion.div>
                         </motion.div>
                     </div>

@@ -203,7 +203,6 @@ export default function Home() {
             <span className="brand-text">Qortana</span>
           </Link>
           <nav className="primary-nav" aria-label="Primary">
-            <Link href="/websites" data-text="Websites">Websites</Link>
             <a href="#reviews" data-text="Case studies">Case studies</a>
             <a href="#about" data-text="About">About</a>
           </nav>
@@ -736,6 +735,7 @@ export default function Home() {
           <nav className="footer-nav">
             <div className="footer-nav-group">
               <h3 className="footer-nav-title">Company</h3>
+              <Link href="/websites">Websites</Link>
               <a href="#about">About</a>
               <a href="#reviews">Case studies</a>
               <a href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">Contact</a>
