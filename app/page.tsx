@@ -203,6 +203,7 @@ export default function Home() {
             <span className="brand-text">Qortana</span>
           </Link>
           <nav className="primary-nav" aria-label="Primary">
+            <Link href="/websites" data-text="Websites">Websites</Link>
             <a href="#reviews" data-text="Case studies">Case studies</a>
             <a href="#about" data-text="About">About</a>
           </nav>
@@ -303,7 +304,7 @@ export default function Home() {
                 </span>
               </a>
             </div>
-            
+
           </div>
         </section>
 
