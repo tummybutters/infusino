@@ -98,29 +98,27 @@ export default function Home() {
   }, [])
 
   const testimonials: Record<string, Testimonial> = {
-    hardys: {
-      quote: "Qortana rebuilt our entire booking stack in days and started filling routes immediately.",
-      client: "Jordan Hardy",
-      role: "Founder, Hardy's Wash N Wax",
-      goal: "Stop losing high-ticket details when calls rolled to voicemail and keep techs fully booked without extra coordinators.",
+    hvac: {
+      quote: "Our HVAC ads finally scale because every lead gets a real reply in under a minute.",
+      client: "Evan Brooks",
+      role: "Owner, Summit HVAC & Air",
+      goal: "Scale paid ads without missing after-hours calls while qualifying installs and repairs via AI SMS.",
       implementation: [
-        "Rebuilt the Hardy's Wash N Wax website with embedded routing + deposit flows.",
-        "Launched a GPT-powered SMS concierge that answers every missed call in under a minute.",
-        "Nudged dispatch via Slack the moment a job was ready so the right van got scheduled."
+        "Rebuilt the Summit HVAC ad landing flow with tracking, scheduling, and fast quote capture.",
+        "Launched a GPT-powered SMS concierge that answers every ad lead in under a minute.",
+        "Routed hot leads to dispatch in Slack and synced estimates to the calendar."
       ],
-      stack: ["Next.js booking hub", "Google Calendar", "n8n orchestration", "AI SMS concierge", "Slack alerts"],
+      stack: ["Next.js lead hub", "Google Ads + Meta forms", "Twilio AI SMS concierge", "n8n orchestration", "Google Calendar", "Slack alerts"],
       metrics: [
-        "120+ appointments now land on the calendar automatically every week",
-        "Response time to missed calls dropped to 45 seconds",
-        "18 hours of manual quoting freed up across the team"
+        "Response time to ad leads dropped to 52 seconds",
+        "Booked estimate rate up 2.1x in the first 30 days",
+        "14 hours of manual follow-up removed each week"
       ],
-      embedUrl: "https://www.hardyswashnwax.com/",
-      offer: "We built the first version for free to prove the ROI before we charged a single dollar.",
       smsImage: "/attached_assets/ai-sms-assistant.png",
       smsBullets: [
-        "Qualifies scope, vehicle count, and budget with GPT agents.",
-        "Escalates hot leads into Slack with clear \"Needs Reply\" tags.",
-        "Keeps CRM + dispatch calendars synced without human follow-up."
+        "Qualifies system type, urgency, and service area in one thread.",
+        "Escalates hot install leads into Slack with clear \"Needs Reply\" tags.",
+        "Keeps CRM + dispatch calendars synced without manual follow-up."
       ]
     },
     website: {
@@ -284,7 +282,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeInUp}
               >
-                Tens of millions of dollars generated (& more saved).
+                Hundreds of thousands of dollars generated (& more saved).
               </motion.h2>
               <motion.p
                 className="about-text"
@@ -293,7 +291,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Our team has generated millions across both SMB & enterprise. We use a proprietary, AI‑driven consulting stack and a framework that dives deep into the heart of your business to fix real, practical problems—not just theoretical ones that look good on paper, but actual ways to drive revenue & grow.
+                Our team has generated hundreds of thousands across both SMB & enterprise. We use a proprietary, AI‑driven consulting stack and a framework that dives deep into the heart of your business to fix real, practical problems—not just theoretical ones that look good on paper, but actual ways to drive revenue & grow.
               </motion.p>
               <a className="button button-dark cta-about" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
                 <span>Let's talk</span>
@@ -305,17 +303,7 @@ export default function Home() {
                 </span>
               </a>
             </div>
-            <motion.div
-              className="about-media"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <figure className="media-card">
-                <img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop" alt="Discussion panel on stage" loading="lazy" />
-              </figure>
-            </motion.div>
+            
           </div>
         </section>
 
@@ -436,7 +424,7 @@ export default function Home() {
               <div className="logo-badge">Real Estate</div>
               <div className="logo-badge">Photography</div>
               <div className="logo-badge">E-commerce</div>
-              <div className="logo-badge">Field Services</div>
+              <div className="logo-badge">HVAC</div>
             </motion.div>
 
             <motion.div
@@ -445,19 +433,19 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              onClick={() => setActiveModal('hardys')}
+              onClick={() => setActiveModal('hvac')}
               whileHover={{ scale: 1.01 }}
               style={{ cursor: 'pointer' }}
             >
               <blockquote className="quote">
-                <p>"{testimonials.hardys.quote}"</p>
-                <p className="quote-summary">We rebuilt Hardy's booking and AI concierge stack free of charge to prove the upside before taking a retainer.</p>
+                <p>"{testimonials.hvac.quote}"</p>
+                <p className="quote-summary">We rebuilt Summit HVAC's ad funnel and AI SMS concierge so every click turned into a booked estimate.</p>
               </blockquote>
               <div className="quote-author">
-                <img className="avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300&auto=format&fit=crop" alt="Hardy's Wash N Wax mobile detailing team" loading="lazy" />
+                <img className="avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300&auto=format&fit=crop" alt="HVAC service team" loading="lazy" />
                 <div className="author-meta">
-                  <div className="author-name">{testimonials.hardys.client}</div>
-                  <div className="author-title">{testimonials.hardys.role}</div>
+                  <div className="author-name">{testimonials.hvac.client}</div>
+                  <div className="author-title">{testimonials.hvac.role}</div>
                 </div>
               </div>
               <div className="click-hint">Click to see the solution →</div>
