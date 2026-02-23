@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import WebsiteCarousel from '@/components/WebsiteCarousel'
 
 type Testimonial = {
   quote: string
@@ -17,6 +18,34 @@ type Testimonial = {
   smsImage?: string
   smsBullets?: string[]
 }
+
+const websiteWheelItems = [
+  {
+    name: 'The Conviction Index',
+    tag: 'Data Intelligence',
+    url: 'https://www.theconvictionindex.com/'
+  },
+  {
+    name: 'Obsidian Auto Works',
+    tag: 'Auto Detailing',
+    url: 'https://www.obsidianautoworksoc.com/'
+  },
+  {
+    name: "Hardy's Wash N Wax",
+    tag: 'Mobile Detailing',
+    url: 'https://www.hardyswashnwax.com/'
+  },
+  {
+    name: 'Solarfig',
+    tag: 'Solar',
+    url: 'https://solarfig.com/'
+  },
+  {
+    name: 'Malohn Capital',
+    tag: 'Private Equity',
+    url: 'https://malohncapital.com/'
+  }
+]
 
 // Animation variants for scroll-triggered elements
 const fadeInUp = {
@@ -62,7 +91,6 @@ const reviewCard = {
 
 export default function Home() {
   const [showMoreReviews, setShowMoreReviews] = useState(false)
-  const [activeModal, setActiveModal] = useState<string | null>(null)
   const heroVideoRef = useRef<HTMLVideoElement | null>(null)
 
   useEffect(() => {
@@ -191,11 +219,8 @@ export default function Home() {
     }
   }
 
-  const activeTestimonial = activeModal ? testimonials[activeModal as keyof typeof testimonials] : null
-
   return (
     <>
-      <link rel="stylesheet" href="/styles.css" />
       <header className="site-header">
         <div className="container nav">
           <Link href="/" className="brand" aria-label="Qortana home">
@@ -204,6 +229,7 @@ export default function Home() {
           </Link>
           <nav className="primary-nav" aria-label="Primary">
             <a href="#reviews" data-text="Case studies">Case studies</a>
+            <Link href="/solutions" data-text="Solutions">Solutions</Link>
             <a href="#about" data-text="About">About</a>
           </nav>
           <a className="button button-dark cta-top" href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">
@@ -391,6 +417,39 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="website-wheel" id="websites">
+          <div className="container website-wheel-inner">
+            <motion.div
+              className="pill"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="pill-badge">{websiteWheelItems.length}</span>
+              <span>Websites</span>
+            </motion.div>
+            <motion.h2
+              className="website-wheel-title"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUp}
+            >
+              Sites rotating around one axis.
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, ease: 'easeOut' }}
+            >
+              <WebsiteCarousel items={websiteWheelItems} autoPlayInterval={5000} />
+            </motion.div>
+          </div>
+        </section>
+
         <section className="testimonials" id="reviews">
           <div className="container testimonials-inner">
             <motion.div
@@ -427,29 +486,29 @@ export default function Home() {
               <div className="logo-badge">HVAC</div>
             </motion.div>
 
-            <motion.div
-              className="testimonial-frame clickable"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              onClick={() => setActiveModal('hvac')}
-              whileHover={{ scale: 1.01 }}
-              style={{ cursor: 'pointer' }}
-            >
-              <blockquote className="quote">
-                <p>"{testimonials.hvac.quote}"</p>
-                <p className="quote-summary">We rebuilt Summit HVAC's ad funnel and AI SMS concierge so every click turned into a booked estimate.</p>
-              </blockquote>
-              <div className="quote-author">
-                <img className="avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300&auto=format&fit=crop" alt="HVAC service team" loading="lazy" />
-                <div className="author-meta">
-                  <div className="author-name">{testimonials.hvac.client}</div>
-                  <div className="author-title">{testimonials.hvac.role}</div>
+            <Link href="/solutions#hvac" className="review-link">
+              <motion.div
+                className="testimonial-frame clickable"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                whileHover={{ scale: 1.01 }}
+              >
+                <blockquote className="quote">
+                  <p>"{testimonials.hvac.quote}"</p>
+                  <p className="quote-summary">We rebuilt Summit HVAC's ad funnel and AI SMS concierge so every click turned into a booked estimate.</p>
+                </blockquote>
+                <div className="quote-author">
+                  <img className="avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300&auto=format&fit=crop" alt="HVAC service team" loading="lazy" />
+                  <div className="author-meta">
+                    <div className="author-name">{testimonials.hvac.client}</div>
+                    <div className="author-title">{testimonials.hvac.role}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="click-hint">Click to see the solution →</div>
-            </motion.div>
+                <div className="click-hint">View solution on dedicated page →</div>
+              </motion.div>
+            </Link>
 
             {!showMoreReviews && (
               <motion.button
@@ -481,68 +540,68 @@ export default function Home() {
                   exit={{ opacity: 0, maxHeight: 0, marginTop: 0 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <motion.div
-                    className="review-card clickable"
-                    custom={0}
-                    initial="hidden"
-                    animate="visible"
-                    variants={reviewCard}
-                    onClick={() => setActiveModal('realestate')}
-                    whileHover={{ scale: 1.02 }}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <p className="review-text">"{testimonials.realestate.quote}"</p>
-                    <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop" alt="Real Estate Agency" loading="lazy" />
-                      <div>
-                        <div className="review-name">{testimonials.realestate.client}</div>
-                        <div className="review-title">{testimonials.realestate.role}</div>
+                  <Link href="/solutions#realestate" className="review-link">
+                    <motion.div
+                      className="review-card clickable"
+                      custom={0}
+                      initial="hidden"
+                      animate="visible"
+                      variants={reviewCard}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <p className="review-text">"{testimonials.realestate.quote}"</p>
+                      <div className="review-author">
+                        <img className="review-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop" alt="Real Estate Agency" loading="lazy" />
+                        <div>
+                          <div className="review-name">{testimonials.realestate.client}</div>
+                          <div className="review-title">{testimonials.realestate.role}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="click-hint">Click to see the solution →</div>
-                  </motion.div>
+                      <div className="click-hint">View solution on dedicated page →</div>
+                    </motion.div>
+                  </Link>
 
-                  <motion.div
-                    className="review-card clickable"
-                    custom={1}
-                    initial="hidden"
-                    animate="visible"
-                    variants={reviewCard}
-                    onClick={() => setActiveModal('photography')}
-                    whileHover={{ scale: 1.02 }}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <p className="review-text">"{testimonials.photography.quote}"</p>
-                    <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop" alt="Photography Studio" loading="lazy" />
-                      <div>
-                        <div className="review-name">{testimonials.photography.client}</div>
-                        <div className="review-title">{testimonials.photography.role}</div>
+                  <Link href="/solutions#photography" className="review-link">
+                    <motion.div
+                      className="review-card clickable"
+                      custom={1}
+                      initial="hidden"
+                      animate="visible"
+                      variants={reviewCard}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <p className="review-text">"{testimonials.photography.quote}"</p>
+                      <div className="review-author">
+                        <img className="review-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop" alt="Photography Studio" loading="lazy" />
+                        <div>
+                          <div className="review-name">{testimonials.photography.client}</div>
+                          <div className="review-title">{testimonials.photography.role}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="click-hint">Click to see the solution →</div>
-                  </motion.div>
+                      <div className="click-hint">View solution on dedicated page →</div>
+                    </motion.div>
+                  </Link>
 
-                  <motion.div
-                    className="review-card clickable"
-                    custom={2}
-                    initial="hidden"
-                    animate="visible"
-                    variants={reviewCard}
-                    onClick={() => setActiveModal('ecommerce')}
-                    whileHover={{ scale: 1.02 }}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <p className="review-text">"{testimonials.ecommerce.quote}"</p>
-                    <div className="review-author">
-                      <img className="review-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&auto=format&fit=crop" alt="E-commerce Brand" loading="lazy" />
-                      <div>
-                        <div className="review-name">{testimonials.ecommerce.client}</div>
-                        <div className="review-title">{testimonials.ecommerce.role}</div>
+                  <Link href="/solutions#ecommerce" className="review-link">
+                    <motion.div
+                      className="review-card clickable"
+                      custom={2}
+                      initial="hidden"
+                      animate="visible"
+                      variants={reviewCard}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <p className="review-text">"{testimonials.ecommerce.quote}"</p>
+                      <div className="review-author">
+                        <img className="review-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&auto=format&fit=crop" alt="E-commerce Brand" loading="lazy" />
+                        <div>
+                          <div className="review-name">{testimonials.ecommerce.client}</div>
+                          <div className="review-title">{testimonials.ecommerce.role}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="click-hint">Click to see the solution →</div>
-                  </motion.div>
+                      <div className="click-hint">View solution on dedicated page →</div>
+                    </motion.div>
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -597,129 +656,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Modal for testimonial details */}
-        <AnimatePresence>
-          {activeModal && (
-            <motion.div
-              className="modal-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveModal(null)}
-            >
-              <motion.div
-                className="modal-content"
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                transition={{ duration: 0.3 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button
-                  className="modal-close"
-                  onClick={() => setActiveModal(null)}
-                  aria-label="Close modal"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-
-                <h3 className="modal-title">The Solution</h3>
-                {activeTestimonial && (
-                  <>
-                    {activeTestimonial.embedUrl && (
-                      <div className="modal-embed-block">
-                        <div className="modal-embed-header">
-                          <h4 className="modal-section-title">Live build preview</h4>
-                          <span className="modal-free-pill">Built free</span>
-                        </div>
-                        {activeTestimonial.offer && (
-                          <p className="modal-offer">{activeTestimonial.offer}</p>
-                        )}
-                        <div className="modal-iframe" aria-label="Client site preview">
-                          <iframe
-                            src={activeTestimonial.embedUrl}
-                            title={activeTestimonial.client + ' website'}
-                            loading="lazy"
-                            sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
-                            referrerPolicy="no-referrer"
-                          ></iframe>
-                        </div>
-                        <p className="modal-iframe-hint">
-                          Scroll around the preview or{' '}
-                          <a href={activeTestimonial.embedUrl} target="_blank" rel="noopener noreferrer">
-                            open the live site ↗
-                          </a>
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="modal-sections">
-                      <div className="modal-section">
-                        <h4 className="modal-section-title">Goal</h4>
-                        <p>{activeTestimonial.goal}</p>
-                      </div>
-                      <div className="modal-section">
-                        <h4 className="modal-section-title">What we implemented</h4>
-                        <ul className="modal-list">
-                          {activeTestimonial.implementation.map(item => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="modal-section">
-                        <h4 className="modal-section-title">Stack highlights</h4>
-                        <div className="modal-chip-row">
-                          {activeTestimonial.stack.map(tool => (
-                            <span className="modal-chip" key={tool}>{tool}</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="modal-section">
-                        <h4 className="modal-section-title">Results (first 60 days)</h4>
-                        <ul className="modal-list">
-                          {activeTestimonial.metrics.map(metric => (
-                            <li key={metric}>{metric}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {activeTestimonial.smsImage && (
-                      <div className="modal-sms-block">
-                        <h4 className="modal-section-title">AI SMS concierge in action</h4>
-                        <img
-                          src={activeTestimonial.smsImage}
-                          alt={`AI SMS assistant for ${activeTestimonial.client}`}
-                          className="modal-screenshot"
-                          loading="lazy"
-                        />
-                        {activeTestimonial.smsBullets && (
-                          <ul className="modal-bullet-list">
-                            {activeTestimonial.smsBullets.map((bullet: string) => (
-                              <li key={bullet}>{bullet}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-
-                <div className="modal-client-info">
-                  <div className="modal-client-name">
-                    {activeTestimonial?.client}
-                  </div>
-                  <div className="modal-client-role">
-                    {activeTestimonial?.role}
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </main>
 
       <footer className="site-footer" id="contact">
@@ -736,6 +672,7 @@ export default function Home() {
             <div className="footer-nav-group">
               <h3 className="footer-nav-title">Company</h3>
               <Link href="/websites">Websites</Link>
+              <Link href="/solutions">Solutions</Link>
               <a href="#about">About</a>
               <a href="#reviews">Case studies</a>
               <a href="https://cal.com/qortana/growth-mapping-call?user=qortana&overlayCalendar=true" target="_blank" rel="noopener noreferrer">Contact</a>
