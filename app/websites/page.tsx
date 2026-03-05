@@ -34,7 +34,6 @@ const portfolioItem = {
 export default function WebsitesPage() {
     return (
         <>
-            <link rel="stylesheet" href="/styles.css" />
             <header className="site-header">
                 <div className="container nav">
                     <Link href="/" className="brand" aria-label="Qortana home">

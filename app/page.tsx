@@ -436,7 +436,7 @@ export default function Home() {
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUp}
             >
-              Sites rotating around one axis.
+              Websites built to convert.
             </motion.h2>
 
             <motion.div
