@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import WebsiteCarousel from '@/components/WebsiteCarousel'
 
 type Testimonial = {
   quote: string
@@ -18,34 +17,6 @@ type Testimonial = {
   smsImage?: string
   smsBullets?: string[]
 }
-
-const websiteWheelItems = [
-  {
-    name: 'The Conviction Index',
-    tag: 'Data Intelligence',
-    url: 'https://www.theconvictionindex.com/'
-  },
-  {
-    name: 'Obsidian Auto Works',
-    tag: 'Auto Detailing',
-    url: 'https://www.obsidianautoworksoc.com/'
-  },
-  {
-    name: "Hardy's Wash N Wax",
-    tag: 'Mobile Detailing',
-    url: 'https://www.hardyswashnwax.com/'
-  },
-  {
-    name: 'Solarfig',
-    tag: 'Solar',
-    url: 'https://solarfig.com/'
-  },
-  {
-    name: 'Malohn Capital',
-    tag: 'Private Equity',
-    url: 'https://malohncapital.com/'
-  }
-]
 
 // Animation variants for scroll-triggered elements
 const fadeInUp = {
@@ -413,39 +384,6 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="website-wheel" id="websites">
-          <div className="container website-wheel-inner">
-            <motion.div
-              className="pill"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="pill-badge">{websiteWheelItems.length}</span>
-              <span>Websites</span>
-            </motion.div>
-            <motion.h2
-              className="website-wheel-title"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeInUp}
-            >
-              Websites built to convert.
-            </motion.h2>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, ease: 'easeOut' }}
-            >
-              <WebsiteCarousel items={websiteWheelItems} autoPlayInterval={5000} />
             </motion.div>
           </div>
         </section>
